@@ -110,5 +110,61 @@ def get_chef_reviews():
 # testing curl -X POST http://127.0.0.1:5000/add_chef_review -H "Content-Type: application/json" -d '{"chef_name": "Гордон Рамзи", "rating": 5, "comment": "Отличный повар!"}'
 
 
+
+# Добавляем API для хранения скрапнутых данных
+ # 📌 Добавляем в app.py эндпоинт для сохранения отзывов из скрапинга
+@app.route('/add_scraped_review', methods=['POST'])
+def add_scraped_review():
+    data = request.json
+    restaurant_name = data.get("restaurant_name")
+    source = data.get("source")  # Например, "TripAdvisor", "Google Reviews"
+    rating = data.get("rating")
+    review_text = data.get("review_text")
+    review_date = data.get("review_date")
+
+    conn = psycopg2.connect(
+        dbname="foodaround_db",
+        user="postgres",
+        password="ТВОЙ_ПАРОЛЬ",
+        host="localhost",
+        port="5432"
+    )
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "INSERT INTO scraped_reviews (restaurant_name, source, rating, review_text, review_date) VALUES (%s, %s, %s, %s, %s) RETURNING id;",
+        (restaurant_name, source, rating, review_text, review_date)
+    )
+    review_id = cursor.fetchone()[0]
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return jsonify({"message": "Скрапнутый отзыв добавлен!", "review_id": review_id})
+
+
+# 📌 Добавляем эндпоинт для получения всех отзывов из scraped_reviews
+@app.route('/get_scraped_reviews', methods=['GET'])
+def get_scraped_reviews():
+    conn = psycopg2.connect(
+        dbname="foodaround_db",
+        user="postgres",
+        password="ТВОЙ_ПАРОЛЬ",
+        host="localhost",
+        port="5432"
+    )
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT id, restaurant_name, source, rating, review_text, review_date FROM scraped_reviews;")
+    reviews = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return jsonify({"scraped_reviews": reviews})
+
+
+# Добавляем скрапнутый отзыв через Postman или curl
+# curl -X POST http://127.0.0.1:5000/add_scraped_review -H "Content-Type: application/json" -d '{"restaurant_name": "La Placinte", "source": "TripAdvisor", "rating": 4.5, "review_text": "Отличная еда!", "review_date": "2025-03-08"}'
+
 if __name__ == '__main__':
     app.run(debug=True)
