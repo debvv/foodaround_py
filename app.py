@@ -5,8 +5,6 @@ import mysql.connector
 app = Flask(__name__)
 
 # Подключение к базе данных MySQL
-
-
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -21,6 +19,7 @@ def get_db_connection():
 def predict_demand():
     data = request.json
     return jsonify({"prediction": "Пример предсказания спроса"})
+
 
 # Система рекомендаций (заглушка)
 @app.route('/recommend', methods=['POST'])
@@ -55,7 +54,7 @@ def get_restaurants():
             "rating": row[3],
             "cuisine": row[4]
         })
-    return jsonify({"restaurants": restaurants})
+    return Response(json.dumps({"restaurants": restaurants}, ensure_ascii=False), mimetype='application/json')
 
 
 # Добавление поварского отзыва
@@ -94,7 +93,6 @@ def get_chef_reviews():
     for r in reviews:
         result.append({"id": r[0], "chef_name": r[1], "rating": r[2], "comment": r[3]})
 
-  #  return jsonify({"chef_reviews": result})
     return Response(json.dumps({"chef_reviews": result}, ensure_ascii=False), mimetype='application/json')
 
 
@@ -144,7 +142,7 @@ def get_scraped_reviews():
             "review_date": str(row[5])
         })
 
-    return jsonify({"scraped_reviews": reviews})
+    return Response(json.dumps({"scraped_reviews": reviews}, ensure_ascii=False), mimetype='application/json')
 
 
 # Обновление данных (заглушка)
