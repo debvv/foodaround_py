@@ -94,7 +94,8 @@ def get_chef_reviews():
     for r in reviews:
         result.append({"id": r[0], "chef_name": r[1], "rating": r[2], "comment": r[3]})
 
-    return jsonify({"chef_reviews": result})
+  #  return jsonify({"chef_reviews": result})
+    return Response(json.dumps({"chef_reviews": result}, ensure_ascii=False), mimetype='application/json')
 
 
 # Добавление скрапнутого отзыва
