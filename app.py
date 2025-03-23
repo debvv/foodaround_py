@@ -70,10 +70,15 @@ def add_chef_review():
 
     conn = get_db_connection()
     cursor = conn.cursor()
+
+    # 💡 Важно! Установить кодировку соединения
+    cursor.execute("SET NAMES utf8mb4 COLLATE utf8mb4_general_ci")
+
     cursor.execute(
         "INSERT INTO chef_reviews (chef_name, rating, comment, created_at) VALUES (%s, %s, %s, NOW())",
         (chef_name, rating, comment)
     )
+
     conn.commit()
     review_id = cursor.lastrowid
     cursor.close()
