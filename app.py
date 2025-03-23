@@ -12,7 +12,8 @@ def get_db_connection():
         password="",
         database="foodaround_db",
         charset='utf8mb4',
-        use_unicode=True
+        use_unicode=True,
+        use_pure= True
     )
 
 
@@ -90,10 +91,12 @@ def get_chef_reviews():
         password="",
         database="foodaround_db",
         charset='utf8mb4',
-        use_unicode=True
+        use_unicode=True,
+        use_pure=True
     )
     cursor = conn.cursor()
  #  cursor.execute("SET NAMES 'utf8mb4'")  # ✅ Обязательно
+    cursor.execute("SET NAMES utf8mb4 COLLATE utf8mb4_general_ci")
     cursor.execute("SELECT id, chef_name, rating, comment FROM chef_reviews;")
     reviews = cursor.fetchall()
     cursor.close()
