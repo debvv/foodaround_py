@@ -82,22 +82,24 @@ def add_chef_review():
 # Получение поварских отзывов
 @app.route('/get_chef_reviews', methods=['GET'])
 def get_chef_reviews():
-    conn = get_db_connection()
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="foodaround_db"
+    )
     cursor = conn.cursor()
     cursor.execute("SELECT id, chef_name, rating, comment FROM chef_reviews;")
     reviews = cursor.fetchall()
     cursor.close()
     conn.close()
 
-    result = []
-    for r in reviews:
-        result.append({"id": r[0], "chef_name": r[1], "rating": r[2], "comment": r[3]})
-
-   # return Response(json.dumps({"chef_reviews": result}, ensure_ascii=False), mimetype='application/json')
     return Response(
         json.dumps({"chef_reviews": reviews}, ensure_ascii=False),
-        mimetype='application/json'
+        mimetype='application/json; charset=utf-8'
     )
+
+
 
 # Добавление скрапнутого отзыва
 @app.route('/add_scraped_review', methods=['POST'])
