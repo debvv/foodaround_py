@@ -10,7 +10,8 @@ def get_db_connection():
         host="localhost",
         user="root",
         password="",
-        database="foodaround_db"
+        database="foodaround_db",
+        charset='utf8mb4'  # fixed codirovky
     )
 
 
@@ -86,7 +87,8 @@ def get_chef_reviews():
         host="localhost",
         user="root",
         password="",
-        database="foodaround_db"
+        database="foodaround_db",
+        charset='utf8mb4'  # fixed codirovky
     )
     cursor = conn.cursor()
     cursor.execute("SELECT id, chef_name, rating, comment FROM chef_reviews;")
