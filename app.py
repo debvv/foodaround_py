@@ -168,6 +168,9 @@ def get_scraped_reviews():
 def update_data():
     return jsonify({"status": "Данные обновлены"})
 
+@app.route("/ping")
+def ping():
+    return "pong"
 
 if __name__ == '__main__':
     app.run(debug=True)
