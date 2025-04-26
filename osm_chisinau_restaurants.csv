@@ -64,11 +64,10 @@ Andy's Pizza,restaurant,pizza;burger,Strada Lev Tolstoi,47.0105507,28.8423844,,h
 Piers,restaurant,seafood,Strada Ghioceilor,47.0189454,28.8084182,+37360660505,,
 Sheng,bar,,Strada Alexandru Hâjdeu,47.0208060,28.8523687,,,
 Molda,restaurant,romanian,Strada Sfântul Gheorghe,47.0229841,28.8523616,,,
-Simpatic Café,cafe,,Strada Alba-Iulia,47.0371038,28.7698796,,,
-Granier,cafe,,Strada Alba-Iulia,47.0381684,28.7698371,,,
+Simpatic Café,cafe,,Strada Alba Iulia,47.0371038,28.7698796,,,
+Granier,cafe,,Strada Alba Iulia,47.0381684,28.7698371,,,
 Diva,restaurant,,Strada Tighina,47.0200506,28.8461069,,,
 Pivzavod,pub,,Bulevardul Mircea cel Bătrân,47.0509533,28.8913264,,https://pivzavod.md,
-,bar,,,47.0516117,28.8940314,,,
 Tic Tac,cafe,regional,Strada Mitropolit Varlaam,47.0217564,28.8405556,,,
 La Plăcinte,restaurant,regional;romanian,Șoseaua Hâncești,47.0039514,28.8182608,+373 22 265 443,https://laplacinte.md/,Mo-Su 10:00-22:00
 Granier,cafe,,Strada Tighina,47.0173654,28.8427472,,,Mo-Su 09:00-20:00
@@ -122,15 +121,15 @@ Brainstorm Café,cafe,,Strada Aleksandr Pușkin,47.0281487,28.8407406,+373 695 4
 À la Minute,restaurant,canteen,Bulevardul Ștefan cel Mare și Sfânt,47.0307549,28.8227349,,,08:00-18:00
 Acasă la Mama,restaurant,regional;romanian,Strada Petru Rareș,47.0363806,28.8404898,,,
 Armonie,restaurant,,,47.0899551,28.8301554,,,
-Andy's Express,fast_food,pizza,Strada Aleksandr Pușkin,47.0215029,28.8313761,,,
-Casa Părintească,restaurant,regional;romanian,Strada Alba-Iulia,47.0412373,28.7630761,,,Mo-Su 10:00-22:00
+Andy's Express,fast_food,pizza,Strada Aleksandr Pușkin,47.0214693,28.8314004,,,
+Casa Părintească,restaurant,regional;romanian,Strada Alba Iulia,47.0412373,28.7630761,,,Mo-Su 10:00-22:00
 Eli-Pili,restaurant,international,Strada București,47.0218968,28.8285327,,,24/7
 Black Rabbit Gastro-Burrow,cafe,,Strada Vlaicu Pârcălab,47.0220512,28.8327018,,,
 DriveCafe,cafe,,Strada Chișinău,47.0642782,28.8550660,,,12:00-21:00
 Hanul lui Pavel,bar,,,47.0638116,28.8472167,,,
 Vlacolax,bar,,,47.0612826,28.8414401,,,
 Paradise,restaurant,,,47.0557277,28.8503486,,,Fr-Sa 23:00-05:00
-Astoria,restaurant,,str. Calea Orheiului,47.0552598,28.8506944,,,
+Astoria,restaurant,,Strada Calea Orheiului,47.0552598,28.8506944,,,
 cappucio,cafe,,Strada Ceucari,47.0591508,28.8478565,,https://www.eurooptica.md/,Mo-Su 08:00-20:00
 Plăcintăria „Cuptoraș”,restaurant,,Strada Mitropolit Varlaam,47.0219267,28.8409512,+373 795 86 040,,
 Pizza Mania,restaurant,pizza,Bulevardul Ștefan cel Mare și Sfânt,47.0240104,28.8346107,,http://www.pizzamania.md/,Mo-Su 08:00-24:00
@@ -147,12 +146,12 @@ Gastrobar,restaurant,french;fine_dining,Strada Alexandru Bernardazzi,47.0166644,
 BIOrganic Raw Café,cafe,,Strada Mihai Eminescu,47.0201521,28.8340033,+373 784 80 007,https://biorganic.md,Mo-Fr 08:00-20:00; Sa 09:00-20:00; Su 09:00-18:00
 Cantina UTM,restaurant,,Strada Studenților,47.0619408,28.8690517,,,
 MadMan's Pub,pub,,Strada Alexei Șciusev,47.0164687,28.8326697,,,Tu-Su 15:00-22:00
-Kebab House,fast_food,kebab,Strada Alba-Iulia,47.0379230,28.7715464,,,
+Kebab House,fast_food,kebab,Strada Alba Iulia,47.0379230,28.7715464,,,
 Ciao Pizza,restaurant,pizza,Strada Maria Drăgan,47.0188795,28.8803742,069611228,,Mo-Su 11:00-23:00
 Mojito,cafe,,Bulevardul Ștefan cel Mare și Sfânt,47.0273219,28.8302317,+373 601 91 111,,24/7
 Râșcanu Vechi,bar,,,47.0368257,28.8656278,,,
 Alimentara,bar,,Strada Ginta Latină,47.0383772,28.8945434,,,Mo-Su 08:00-02:00
-Traianbeer,pub,,Strada Alba-Iulia,47.0385870,28.7657138,,,
+Traianbeer,pub,,Strada Alba Iulia,47.0385870,28.7657138,,,
 Pub,bar,,,47.0383973,28.8943863,,,
 Manhattan Restaurant,restaurant,,Strada Ciuflea,47.0121693,28.8446640,,,
 u Čehov,restaurant,czech,Bulevardul Renașterii Naționale,47.0363892,28.8489195,+373 791 6 31 63,https://ucehov.md/,Mo-Su 12:00-24:00
@@ -169,13 +168,13 @@ Kira's Club,bar,,Strada Veronica Micle,47.0200583,28.8356840,,,
 Karaoke Home Club,bar,,Strada Mitropolit Varlaam,47.0175259,28.8468141,,,
 Restobar,restaurant,,,47.1001678,28.8186211,,,Mo-Su 09:30-23:00
 Hiorra,cafe,coffee_shop,Strada Vasile Alecsandri,47.0179334,28.8341714,,,Mo-Sa 08:00-19:00
-MuzCafé 44,pub,,Strada Albișoara,47.0342617,28.8450107,+373 681 04444,,24/7
+MuzCafé,pub,,Strada Albișoara,47.0342617,28.8450107,+373 681 04444,,24/7
 Little Napoli,restaurant,pizza,Strada Alexei Șciusev,47.0204400,28.8273516,,,Mo-Su 10:00-22:00
 Imbiss Pizza,cafe,,Strada Ion Creangă,47.0288775,28.7973978,,,Mo-Su 09:00-23:00
-Park Avenue,restaurant,,,47.0054427,28.8590766,,,
+Park Avenue,restaurant,,Bulevardul Decebal,47.0054427,28.8590766,,,
 Big Kebab Pizza & Burgers,fast_food,,Strada Calea Ieșilor,47.0377531,28.8083244,,,
 Tratoria Della Nonna,restaurant,,Strada Calea Ieșilor,47.0380177,28.8068636,,,24/7
-Taxi Blues Café,cafe,,Strada Alba-Iulia,47.0354461,28.7748495,,,Mo-Su 09:00-02:00
+Taxi Blues Café,cafe,,Strada Alba Iulia,47.0354461,28.7748495,,,Mo-Su 09:00-02:00
 Biliard „Marius”,bar,,,47.0051557,28.8937191,,,
 Et-Çi Mill & Grill,restaurant,,Strada Columna,47.0189989,28.8476559,,,
 Cafenea Express,cafe,,Bulevardul Moscova,47.0568946,28.8667287,,,
@@ -184,11 +183,11 @@ Ony's Cafè,cafe,,Strada Albișoara,47.0379885,28.8315325,,,Mo-Su 12:00-23:00
 Andy's Pizza,restaurant,breakfast;pizza,,47.0558156,28.8920170,,https://www.andys.md/,
 Grill Express,fast_food,kebab,Strada Voluntarilor,47.0068928,28.8933290,,,Mo-Su 08:00-22:00
 PartyZAN Game Private Club,pub,,Strada Onisifor Ghibu,47.0335489,28.7746074,+373 22 581 048,,Mo-Su 14:00-01:00
-Salat,restaurant,,Strada Alba-Iulia,47.0423184,28.7624870,+373 797 00 777,,Mo-Su 08:00-01:00
+Salat,restaurant,,Strada Alba Iulia,47.0423184,28.7624870,+373 797 00 777,,Mo-Su 08:00-01:00
 ,bar,,,47.1000047,28.7683769,,,
 Bar,bar,,,47.0446799,28.8975875,,,
 Testo,cafe,,Strada Onisifor Ghibu,47.0388694,28.7801746,+373 790 76 088,https://gustos.md/,Su-Th 09:00-00:00; Fr-Sa 09:00-02:00
-Green Pub,pub,,Strada Alba-Iulia,47.0395068,28.7721446,+373 22 854 234,,Mo-Su 11:00-03:00
+Green Pub,pub,,Strada Alba Iulia,47.0395068,28.7721446,+373 22 854 234,,Mo-Su 11:00-03:00
 Cafea și Carne,cafe,,Strada Octavian Goga,47.0265694,28.8409908,+373 691 46718,,Mo-Th 09:00-20:00; Fr 09:00-23:00; Sa-Su 12:00-23:00
 Star Kebab,fast_food,kebab,Strada Alecu Russo,47.0449721,28.8620069,+373 22 855 727,https://starkebab.md/,24/7
 Kimbo Bar & Showroom,cafe,sandwich;breakfast;ice_cream;tea;coffee_shop;pasta;italian;diner,Strada Bogdan Voievod,47.0439911,28.8583699,+373 607 79 777,http://www.kimbo.md,Mo-Su 08:00-22:00
@@ -221,12 +220,11 @@ Moldovița,cafe,,Strada Vasile Alecsandri,47.0218411,28.8400235,,,
 Andy’s Food Market,restaurant,pizza,Strada Ion Creangă,47.0329818,28.8068555,,,
 MeatMaster,bar,,,47.1515706,28.8314990,,,
 Coffee Varka,cafe,coffee_shop,Bulevardul Moscova,47.0457283,28.8621558,,,Mo-Su 07:00-22:00
-Chipăruș,cafe,,Strada Calea Basarabiei,47.0082435,28.8745391,,,
 Bar,bar,,Strada Petru Zadnipru,47.0427072,28.8938690,,,
 New York Restaurant & Bar,restaurant,,Strada Mitropolit Varlaam,47.0244269,28.8365883,,,Mo-Su 07:00-06:00
 Norta+,restaurant,,Strada Doina și Ion Aldea-Teodorovici,47.0287749,28.7946333,,,
 Cafenea Terasă,pub,,Strada Podul Înalt,47.0247657,28.8761942,,,
-Wine Gogh,restaurant,,Strada Aleksandr Pușkin,47.0272971,28.8388422,,,Mo-Su 10:00-23:00
+Wine Gogh,restaurant,,Strada Aleksandr Pușkin,47.0273130,28.8388412,,,Mo-Su 10:00-23:00
 Pasio Coffee,cafe,coffee_shop,Strada Vasile Alecsandri,47.0205968,28.8375248,,,
 Délice d'Ange,cafe,,Strada 31 August 1989,47.0222959,28.8296181,,,"Mo-Fr 08:00-21:00; Sa,Su 09:00-21:00"
 La Șezătoare,restaurant,romanian,Strada Alexei Șciusev,47.0182111,28.8300646,,,
@@ -266,7 +264,6 @@ Tasty Kebab,fast_food,,Strada Calea Ieșilor,47.0390828,28.8024612,,,
 Coffee Varka,cafe,coffee_shop,Bulevardul Moscova,47.0477396,28.8630039,,,Mo-Su 07:00-22:00
 CoffeeVarka,cafe,,Bulevardul Mircea cel Bătrân,47.0376881,28.8892645,,,Mo-Su 07:00-21:00
 Coffee Varka,cafe,coffee_shop,Strada Kiev,47.0402598,28.8599402,,,Mo-Su 07:00-22:00
-DC Donuts & Coffee,cafe,,Strada Alexandr Pușkin,47.0191874,28.8277690,+373 694 41 221,https://donuts.md/,Mo-Su 8:00-22:00
 Kosher Pizza,fast_food,pizza,Strada Alexei Șciusev,47.0132065,28.8374524,+37368383831,,Mo-Fr 10:00-19:00
 PizzArt,fast_food,pizza,Bulevardul Ștefan cel Mare și Sfânt,47.0167257,28.8431354,,,
 Burger Cartier,fast_food,,Strada Gheorghe Cașu,47.0047009,28.8332957,,,Mo-Su 08:00-23:00
@@ -279,13 +276,12 @@ Coffee Point Street Café,cafe,,Strada Constantin Tănase,47.0292978,28.8373890,
 Cosmic Cup Coffee,cafe,,Bulevardul Ștefan cel Mare și Sfânt,47.0219592,28.8371734,,,
 Sicilia Coffee House,cafe,,Strada Valea Trandafirilor,47.0080593,28.8485436,,,
 Il Forno,restaurant,,Strada Alexei Șciusev,47.0245406,28.8212183,,,Mo 12:00-22:00; Tu-Su 10:00-22:00
-Poetry Coffeeshop Powered by Julius Meinl,cafe,,Bulevardul Ștefan cel Mare și Sfânt,47.0292403,28.8245712,,,
+Poetry Coffeeshop Powered by Julius Meinl,cafe,,Bulevardul Ștefan cel Mare și Sfânt,47.0292418,28.8247332,,,
 Sincer Café,cafe,,Strada Mihai Eminescu,47.0202250,28.8347421,,,"Su-Th 08:00-21:00; Fr,Sa 08:00-22:00"
 Piana Vyshnia,bar,,Bulevardul Ștefan cel Mare și Sfânt,47.0268189,28.8286629,,https://www.fest.lviv.ua/uk/restaurants/drunkcherry/,
 Sens Unic,cafe,,Strada Andrei Doga,47.0325963,28.8583023,,,
 Naringi,cafe,,Strada 31 August 1989,47.0245854,28.8262264,,,
 Naringi,cafe,breakfast;cake;coffee_shop;donut;sandwich,Strada Aleksandr Pușkin,47.0229016,28.8330952,+37378992249,https://naringi.md/,Mo-Su 10:00-20:00
-Terasa Pan Avenue,cafe,,Bulevardul Mircea cel Bătrân,47.0401823,28.8923447,,,
 Kavkazskaya Plennitsa,restaurant,,Strada Kiev,47.0421087,28.8592160,,,
 GoodVin,restaurant,,Strada Studenților,47.0625283,28.8749268,,,
 Cafeneaua Veche,bar,regional,Strada Doina și Ion Aldea-Teodorovici,47.0304830,28.7938596,,,
@@ -300,7 +296,6 @@ Lingurița de Argint,restaurant,,Strada Frumoasa,47.0036650,28.8140998,+373 22 2
 ,bar,,,47.0341141,28.8632938,,,
 Billiard Hall,pub,,Strada Calea Ieșilor,47.0401574,28.8025512,,,
 Fuior,restaurant,regional;romanian,Strada Aleksandr Pușkin,47.0247979,28.8361654,+373 689 44 944,https://www.fuior.md/,Mo-Su 09:00-23:00
-Food Mafia,restaurant,sushi,Bulevardul Mircea cel Bătrân,47.0500037,28.8911332,+373 798 01 060,https://foodmafia.md,Mo-Th 11:00-23:00; Fr-Su 11:00-24:00
 Star Kebab,fast_food,,Strada Alecu Russo,47.0379679,28.8846755,,,
 La Strada Sandwicherie,fast_food,sandwich,Strada Constantin Tănase,47.0297052,28.8373848,,,
 La Grătar,restaurant,regional;romanian,Strada Columna,47.0221406,28.8424266,,,
@@ -325,7 +320,7 @@ Bistekka,restaurant,italian,Strada Alexandru cel Bun,47.0275527,28.8363612,+373 
 Salsa House Club Café,cafe,,Strada Alexandru cel Bun,47.0278656,28.8360506,,,
 Coffee Party,cafe,,Șoseaua Hâncești,47.0029905,28.8169291,,,
 Coffee Party,cafe,,Strada Aleksandr Pușkin,47.0217074,28.8313831,,,
-Albion,bar,,Strada Alexandr Pușkin,47.0214337,28.8314555,,,
+Albion,bar,,Strada Alexandr Pușkin,47.0215243,28.8314770,,,
 Urbanic Sandwicherie,restaurant,,Strada Aleksandr Pușkin,47.0226952,28.8327559,,,
 Frumușica,cafe,,Strada Calea Basarabiei,47.0090114,28.8739978,,,
 Terasa Plovdiv,cafe,,Bulevardul Moscova,47.0472916,28.8635256,,,
@@ -339,10 +334,10 @@ Sala de Degustare Wine.md,bar,,Strada Alexei Șciusev,47.0196795,28.8284905,,,
 Z Café,cafe,,Strada 31 August 1989,47.0201955,28.8327731,,,
 Madam Wong,restaurant,asian,Strada Alexandr Pușkin,47.0267753,28.8386543,,,
 Complement,restaurant,,Strada Armenească,47.0165229,28.8349609,,,
-Dulcinella,cafe,,Strada Alba-Iulia,47.0420326,28.7613840,,,
+Dulcinella,cafe,,Strada Alba Iulia,47.0420326,28.7613840,,,
 Bonjour Café,cafe,,Strada Columna,47.0266989,28.8354550,+373 795 99 123,https://www.facebook.com/bonjour.cafe.md/,
 BierJa,bar,,Strada Gheorghe Asachi,47.0002092,28.8215007,,,
-2You.Coffee,cafe,,Strada Alexandr Pușkin,47.0273958,28.8389820,+373 685 58 588,https://instagram.com/2you.coffee/,Mo-Su 07:00-19:00
+2You.Coffee,cafe,,Strada Alexandr Pușkin,47.0274403,28.8390325,+373 685 58 588,,Mo-Su 07:00-19:00
 Restaurant Luna,restaurant,,Strada Mitropolit Petru Movilă,47.0279604,28.8194174,,,
 Velgar,restaurant,,Strada Mitropolit Varlaam,47.0236142,28.8384709,,,
 Staropramen Pub,pub,,Bulevardul Moscova,47.0526466,28.8649948,,,
@@ -376,6 +371,7 @@ Vega-L,restaurant,,Strada Alba Iulia,47.0293574,28.7874666,,,
 Coffee Like,cafe,coffee_shop,Bulevardul Grigore Vieru,47.0320008,28.8438288,,,
 Bar „Auto Formula 1”,bar,,Strada Vadul lui Vodă,47.0290893,28.8764178,,,
 Cafenea Varzari,cafe,,,47.1451430,28.8351062,,,
+Power Kebab,fast_food,kebab,Bulevardul Ștefan cel Mare și Sfânt,47.0182481,28.8426731,,,
 Andy's Pizza,restaurant,,Bulevardul Ștefan cel Mare și Sfânt,47.0181882,28.8427684,,,
 Pepe Rosso,restaurant,turkish,Bulevardul Ștefan cel Mare și Sfânt,47.0180969,28.8428865,,,
 Castle Tavern,restaurant,romanian,Bulevardul Ștefan cel Mare și Sfânt,47.0199987,28.8410627,+373 790 50 608,,
@@ -398,7 +394,7 @@ Salat,restaurant,,Strada Kiev,47.0438651,28.8615596,,,
 Greko Fresh,restaurant,greek,Strada Vasile Alecsandri,47.0079944,28.8268013,,https://www.facebook.com/grekofresh/,Mo-Su 09:00-24:00
 Grand Optica Café,cafe,,Strada Vasile Alecsandri,47.0085296,28.8272232,,,
 Select Café,cafe,,Bulevardul Mircea cel Bătrân,47.0486736,28.8896946,,,
-Gold Baklava,cafe,,Strada Alba-Iulia,47.0374800,28.7695894,,,
+Gold Baklava,cafe,,Strada Alba Iulia,47.0374800,28.7695894,,,
 Terasa Mugurel,restaurant,romanian,Strada Mihail Sadoveanu,47.0383321,28.8785311,,,
 Sushiko,restaurant,sushi,Strada Ismail,47.0172952,28.8487101,,,
 Pro Sănătate,bar,,Strada Vasile Alecsandri,47.0237074,28.8425738,,https://www.facebook.com/2121557894795908/,
@@ -407,12 +403,11 @@ Tucano Coffee Kenya,cafe,coffee_shop,Bulevardul Moscova,47.0462394,28.8617382,+3
 Coffee Time,cafe,coffee_shop,Strada Eugen Coca,47.0335427,28.8076594,,,
 Retro Café,cafe,,Strada Calea Ieșilor,47.0376359,28.8116287,,,
 Noroc,bar,,Strada Sucevița,47.0375447,28.7827901,,,
-Saj Beirut,restaurant,lebanese,Bulevardul Decebal,47.0007210,28.8596920,+373 22 907 000,,
 Bizonn,restaurant,,Strada Suceava,47.0318309,28.7887675,+37368105426,https://www.facebook.com/Bizonn.Chisinau/,
 PUBG Playstation & PC Club,internet_cafe,,Bulevardul Mircea cel Bătrân,47.0400567,28.8891824,,,
 Dima Kebab,fast_food,,Strada Vasile Lupu,47.0223733,28.7988546,,,
 The Old Street Coffee & More,cafe,coffee_shop,Strada Mitropolit Varlaam,47.0237115,28.8369289,,,
-Kebab Express,fast_food,kebab,Strada Alba-Iulia,47.0268025,28.7916514,,,
+Kebab Express,fast_food,kebab,Strada Alba Iulia,47.0268025,28.7916514,,,
 Beer Street,pub,,Strada Cornului,47.0198692,28.7951059,,,
 Esushi,restaurant,sushi,Strada Calea Ieșilor,47.0398499,28.8030555,,,
 Esushi,restaurant,sushi,Strada Calea Ieșilor,47.0397005,28.8038272,,,
@@ -422,12 +417,12 @@ Esushi,restaurant,sushi,Strada Nicolae Costin,47.0428821,28.7716513,+373 681 33 
 DABBLS,cafe,coffee_shop,Strada Mitropolit Gavriil Bănulescu-Bodoni,47.0229358,28.8269385,,,
 Bisquit Café,cafe,,Bulevardul Moscova,47.0568274,28.8667015,,,
 Das Kebab,fast_food,kebab,Bulevardul Moscova,47.0566643,28.8664263,,,
-Markiz Café & Bar,cafe,,Strada Alba-Iulia,47.0401818,28.7615422,,,
+Markiz Café & Bar,cafe,,Strada Alba Iulia,47.0401818,28.7615422,,,
 Good & Food Café,cafe,,Strada Codrilor,47.0386255,28.7565877,+37369134775,,
 Villa Gusto's,cafe,,Strada Paris,47.0300497,28.7802261,,,
 Aquaexpress Café,cafe,,Strada Florești,47.0315468,28.7830238,,,
-Bar Total Wash,bar,,Strada Alba-Iulia,47.0332403,28.7795640,,,
-Cantina Orange,cafe,,Strada Alba-Iulia,47.0372764,28.7705787,,,
+Bar Total Wash,bar,,Strada Alba Iulia,47.0332403,28.7795640,,,
+Cantina Orange,cafe,,Strada Alba Iulia,47.0372764,28.7705787,,,
 Royal Wash Café,cafe,,Strada Florești,47.0296957,28.7867653,,,
 Balkan Grill,restaurant,balkan,Strada Ion Creangă,47.0267216,28.7914832,+373 620 30 001,,Mo-Su 10:00-23:00
 Mussels Seafood & Wine,restaurant,,Strada Mihai Eminescu,47.0194424,28.8339098,,,
@@ -439,16 +434,14 @@ Avocado Café,cafe,,Strada Ion Creangă,47.0277073,28.7960306,,,
 Coffee Party,cafe,coffee_shop,Strada Ion Creangă,47.0282785,28.7968461,,,
 The Cup Express,cafe,coffee_shop,Strada Ion Creangă,47.0285821,28.7977736,,,
 Mr. Kebab,fast_food,kebab,Bulevardul Moscova,47.0489564,28.8636518,,,
-Panitto,fast_food,,Bulevardul Moscova,47.0586044,28.8677963,,,Mo-Fr 08:00-20:00; Sa-Su 09:00-20:00
 CremCaffe,cafe,coffee_shop,,47.0187056,28.8193106,,,
-Lavazza,cafe,coffee_shop,,47.0217221,28.8150336,,,
+like,cafe,coffee_shop,,47.0217221,28.8150336,,,
 Bonjour Café,cafe,coffee_shop,Strada Alexandru Plămădeală,47.0198398,28.8099673,,,
 Tomat,fast_food,,Bulevardul Mircea cel Bătrân,47.0539747,28.8899221,,,
 Luciana,cafe,,Bulevardul Mircea cel Bătrân,47.0539115,28.8899177,,,
 Ebere,bar,,Bulevardul Renașterii Naționale,47.0361653,28.8496033,,,
 The Cup Espresso Bar,cafe,coffee_shop,Bulevardul Mircea cel Bătrân,47.0412767,28.8908923,,,
-Don Cezar Pizza & Grill,restaurant,pizza,Strada Liviu Deleanu,47.0396546,28.7693861,+373 686 05 564,,
-Old House Pub,pub,,Strada Alba-Iulia,47.0361032,28.7760024,,,
+Old House Pub,pub,,Strada Alba Iulia,47.0361032,28.7760024,,,
 LavAzza,cafe,coffee_shop,Strada Miron Costin,47.0496063,28.8677770,,,
 Storno Pasta & Pizza,restaurant,italian,Strada Miron Costin,47.0496549,28.8693550,,,
 Andy's Express,fast_food,,,47.0013327,28.8552968,,,
@@ -465,7 +458,7 @@ Caffe Market,cafe,,Strada Codrilor,47.0387209,28.7568702,+37360327798,https://ca
 Freedom-Pub,pub,,Strada Liviu Deleanu,47.0464586,28.7669271,+37369249000,,
 Vanillia,fast_food,,Șoseaua Balcani,47.0584864,28.7822552,+37360966877,https://www.facebook.com/vanilliacatering/,
 Căsuța cu Plăcinte,cafe,,Strada Buiucani,47.0411971,28.7502490,+373 600 03 009,,
-Keller Holz Gastropub,restaurant,,Bulevardul Ștefan cel Mare și Sfânt,47.0179942,28.8417733,,,
+Keller Holz Gastropub,restaurant,grill;regional,Bulevardul Ștefan cel Mare și Sfânt,47.0179942,28.8417733,+373 68 999 920,https://kh.md,Mo-Su 11:00-23:00
 Sunduk,bar,,Strada Vasile Lupu,47.0219268,28.8074422,,,
 Forest Bar & Grill,bar,,Strada Nicolae Costin,47.0412800,28.7747017,+373 601 23 000,https://www.facebook.com/Forest-Bar-Grill-236197246943690/,
 Fortis Café,cafe,,Strada Nicolae Costin,47.0411643,28.7749339,+37369113771,https://www.facebook.com/FortisCafe1/,
@@ -480,7 +473,7 @@ Bio Cocof,cafe,,Strada Vlaicu Pârcălab,47.0246146,28.8382076,,,
 ,cafe,coffee_shop,Strada Calea Ieșilor,47.0424140,28.7962703,,,
 Cafenea Acvila,cafe,,Strada Calea Ieșilor,47.0423511,28.7983874,+37368499292,https://cafenea-acvila.business.site/?utm_source=gmb&utm_medium=referral,
 Wurst,fast_food,,Strada Calea Ieșilor,47.0394983,28.8036696,+373 695 20 520,https://www.wurst.md/,
-La Plăcinte,restaurant,regional;romanian,Strada Alba-Iulia,47.0336488,28.7787365,+373 22 265 401,https://laplacinte.md/,Mo-Su 10:00-22:00
+La Plăcinte,restaurant,regional;romanian,Strada Alba Iulia,47.0336488,28.7787365,+373 22 265 401,https://laplacinte.md/,Mo-Su 10:00-22:00
 Turcanu Raisa,bar,,,47.1280457,28.9998212,,,
 Tucano Coffee Uganda,cafe,,Strada Calea Ieșilor,47.0398249,28.8031535,,,
 OBA,fast_food,,Strada Bucuriei,47.0406176,28.8124008,,,
@@ -492,13 +485,12 @@ Tokyo Sushi,restaurant,sushi,Strada Calea Ieșilor,47.0401830,28.8023549,,,
 Bonjour Café,cafe,,,47.0252989,28.8281332,,,
 Moicafé,cafe,,Strada Doina,47.0609322,28.8357629,,,
 Magic Lounge Pizza,restaurant,pizza,Strada Mihail Sadoveanu,47.0328493,28.8789675,,,
-Vinopizza,restaurant,pizza,Strada Vlaicu Pârcălab,47.0213096,28.8316178,,,
+Vinopizza,restaurant,pizza,Strada Vlaicu Pârcălab,47.0213296,28.8316132,,,
 Plincuvin Wine Bar,bar,,Stradela Teatrului,47.0268888,28.8315495,,,
 Namaste Café & Pub,restaurant,asian,Strada Academiei,47.0014925,28.8150696,,,
 Sushka,restaurant,sushi,Bulevardul Moscova,47.0452361,28.8622167,,,
 Fork Café,cafe,,Strada Petricani,47.0443548,28.8318887,,,
 Pepperoni Pizza,fast_food,pizza,Strada Calea Ieșilor,47.0396337,28.8039782,,,
-Coffee to Coffee,cafe,coffee_shop,Strada Petricani,47.0425028,28.8382597,,,
 Coffee Point Studio,cafe,,Bulevardul Mircea cel Bătrân,47.0429167,28.8909425,069589388,,Mo-Su 07:00-22:00
 Restaurant „Doi Îngerași”,restaurant,,Strada Tudor Vladimirescu,47.0281285,28.7704238,+37368901907,https://www.facebook.com/restaurantdoiingerasi/,
 Kavcazskiy Dvorik,bar,,Strada Tudor Vladimirescu,47.0266184,28.7724367,,,
@@ -507,7 +499,6 @@ Cohya,cafe,coffee_shop,Strada Bogdan Voievod,47.0434476,28.8586641,,,
 1516 by RockScor Brewery,pub,,Strada Vlaicu Pârcălab,47.0191796,28.8300654,,,Tu-Su 12:00-22:00
 Milk Coffee,cafe,coffee_shop,Strada Alexei Șciusev,47.0190396,28.8294058,,,
 Pizzeria pe Vatră,restaurant,pizza,Strada Grătiești,47.0618413,28.8479072,,,
-All-In Burger's,fast_food,burger,Bulevardul Decebal,47.0008619,28.8595459,,,
 City Coffee,cafe,coffee_shop,Bulevardul Moscova,47.0480281,28.8633930,,,
 City Burger,fast_food,burger,Strada Socoleni,47.0622012,28.8525913,,,
 Kot Coffee,cafe,coffee_shop,Strada Calea Ieșilor,47.0386886,28.8084247,,,
@@ -519,7 +510,6 @@ Coffee Meow,cafe,coffee_shop,Strada Profesor Ion Dumeniuc,47.0563765,28.8912364,
 Bistretto Coffee & Pastry Bar,cafe,coffee_shop,Strada Profesor Ion Dumeniuc,47.0561614,28.8919905,,,
 Zeppelín Warm & Tasty,cafe,,Bulevardul Ștefan cel Mare și Sfânt,47.0264993,28.8282228,,,
 La Boris,restaurant,regional;romanian,Strada Movila lui Burcel,47.0385659,28.8372203,,,
-Dima Kebab,fast_food,kebab,Strada Vasile Alecsandri,47.0244871,28.8428864,,,
 Restaurant Lion's,restaurant,,Strada Vlaicu Pârcălab,47.0193433,28.8302655,,,
 Motif,bar,,Strada Calea Orheiului,47.0422521,28.8443390,,,
 Lagerfild,bar,,Strada Calea Orheiului,47.0422397,28.8444255,,,
@@ -529,7 +519,7 @@ Fish-ka,cafe,,Bulevardul Moscova,47.0555893,28.8648717,,,
 Line Coffee,cafe,coffee_shop,Strada Tighina,47.0166726,28.8425652,,,
 Carnprodlux Grill Café,restaurant,steak_house,,47.0612402,28.9541727,,,
 Invino Wine Bar,bar,,Strada Mitropolit Gavriil Bănulescu-Bodoni,47.0261969,28.8315400,,,
-Pumba,cafe,coffee_shop,Strada Alba-Iulia,47.0278034,28.7920185,,,
+Pumba,cafe,coffee_shop,Strada Alba Iulia,47.0278034,28.7920185,,,
 Coffee Hub,cafe,coffee_shop,Strada Nicolae Costin,47.0392792,28.7800489,,,
 Coffee Time,cafe,coffee_shop,Strada Alexandru Plămădeală,47.0198743,28.8100436,,,
 Barista Coffee,cafe,coffee_shop,Strada Grigore Alexandrescu,47.0195708,28.8086862,,,
@@ -542,11 +532,10 @@ Atypic,restaurant,,Strada Aleksandr Pușkin,47.0266954,28.8385395,,,
 Cafelini Coffee Roastery,cafe,coffee_shop,Strada Aleksandr Pușkin,47.0233062,28.8336441,,,
 Aliodor Disco Bar,bar,,Strada Gheorghe Asachi,47.0001595,28.8209325,,,
 Power Kebab,fast_food,kebab,Bulevardul Decebal,47.0055246,28.8587611,,,
-BlueBar,bar,,Strada Albișoara,47.0379036,28.8305293,,,
 Chișinău Café,cafe,,Bulevardul Constantin Negruzzi,47.0131667,28.8490845,,,
 Look,bar,,Strada Kiev,47.0438954,28.8618517,,,
-Cyber Arena,internet_cafe,,Strada Alba-Iulia,47.0268561,28.7916497,+37378605005,,24/7
-"Cantina „Dieta-Vitas""",cafe,,,47.0360696,28.8196820,,,
+Cyber Arena,internet_cafe,,Strada Alba Iulia,47.0268561,28.7916497,+37378605005,,24/7
+Cantina „Dieta-Vitas”,cafe,,,47.0360696,28.8196820,,,
 Bar „Valna-caragia”,bar,,Strada Ioana Radu,47.0261920,28.7960919,,,
 Cafenea & Bar,cafe,,Strada Ion Luca Caragiale,47.0301777,28.7848738,,,
 Lavazza,cafe,coffee_shop,Strada Paris,47.0310615,28.7814110,,,
@@ -620,7 +609,7 @@ Clanico,restaurant,regional,Strada Alexei Mateevici,47.0922172,28.8635848,,,
 La Crâșmă,restaurant,regional;romanian,Strada Hipodromului,47.0477132,28.8496605,,,
 Bordeiaș,restaurant,regional;romanian,Strada Rabbi Țirilson,47.0248836,28.8444385,,,
 Coffee House,cafe,coffee_shop,Strada Kiev,47.0439657,28.8618153,,,
-Zebra Coffee,cafe,coffee_shop,Bulevardul Ștefan cel Mare și Sfânt,47.0293539,28.8248095,,,
+Zebra Coffee,cafe,coffee_shop,Bulevardul Ștefan cel Mare și Sfânt,47.0293690,28.8248652,,,
 Trycoffee,cafe,coffee_shop,Bulevardul Ștefan cel Mare și Sfânt,47.0296471,28.8243803,,,
 Vinoteca Wine.md,bar,,Strada Aleksandr Pușkin,47.0204330,28.8290397,,,
 Sandra Coffee,cafe,,,47.0070084,28.8495948,,,
@@ -670,7 +659,7 @@ La o bere!,bar,,,47.1655630,28.9487558,,,
 Millor Café,cafe,,Strada Alecu Russo,47.0390711,28.8817525,,,
 Coffee Prim Wash,cafe,coffee_shop,Strada Vadul lui Vodă,47.0368131,28.8993863,,,
 CoffeeMolka,cafe,coffee_shop,Strada 31 August 1989,47.0236251,28.8301130,,,
-McDonald's,fast_food,burger,Strada Alba-Iulia,47.0388646,28.7701479,+37379401189,https://www.mcdonalds.md/,"PH,Mo-Su 07:00-24:00"
+McDonald's,fast_food,burger,Strada Alba Iulia,47.0388646,28.7701479,+37379401189,https://www.mcdonalds.md/,"PH,Mo-Su 07:00-24:00"
 Coffee Monkey,cafe,coffee_shop,Strada Aleksandr Pușkin,47.0217369,28.8314284,,,
 Black Moon,cafe,,Strada Aleksandr Pușkin,47.0284972,28.8411768,,,
 Casa Roz Bar,bar,,Strada Columna,47.0186282,28.8476360,,,
@@ -713,7 +702,7 @@ Time Resto Bar,restaurant,,Strada Albișoara,47.0151301,28.8556656,,,
 Time Resto Bar,restaurant,,Strada Albișoara,47.0151301,28.8556656,,,
 Midpoint,cafe,,Strada Albișoara,47.0150541,28.8555831,,,
 Sumeshi,restaurant,sushi,Strada Albișoara,47.0152643,28.8565165,,,
-,restaurant,,,47.0070925,28.7641303,+373210210,http://www.anbys.md,Mo-Su 09:00-20:00
+Andy's Pizza,restaurant,pizza,Strada Nicolae Dimo,47.0070925,28.7641303,+373 22 210 210,https://andys.md/,Mo-Su 09:00-20:00
 Salle de Café,cafe,,Strada 31 August 1989,47.0145825,28.8411730,,,
 Pao Pao,cafe,bubble_tea,Strada Mitropolit Gavriil Bănulescu-Bodoni,47.0260601,28.8314421,,,Mo-Sa 09:00-19:30; Su 10:00-15:00
 Gusto Italiano,restaurant,,Strada Mitropolit Gavriil Bănulescu-Bodoni,47.0258297,28.8317889,+373 793 36 633,,Mo-Su 09:00-00:00
@@ -756,7 +745,6 @@ Jazz Lobby Bar,bar,,Strada Vlaicu Pârcălab,47.0246796,28.8384894,,,
 Coffee Hub,cafe,coffee_shop,Strada Nicolae Dimo,47.0380638,28.8625041,,,Mo-Su 07:00-22:00
 Kebab Time,fast_food,kebab,Strada Paris,47.0307146,28.7809227,,,
 Bottega del Caffè,cafe,coffee_shop,Bulevardul Ștefan cel Mare și Sfânt,47.0229499,28.8358957,,,
-LeAcasa,restaurant,romanian,Strada Bulgară,47.0149201,28.8360366,,,
 Bati Club,restaurant,,Strada Bulgară,47.0141604,28.8355116,,,
 Pizza Mania,bar,,Bulevardul Moscova,47.0528297,28.8650589,,,
 Bestea,cafe,bubble_tea,Bulevardul Moscova,47.0480288,28.8621997,,,Mo-Su 09:00-21:00
@@ -769,12 +757,12 @@ GioGio,restaurant,georgian,Strada Kiev,47.0403665,28.8604032,,,
 OakimiSushi,restaurant,japanese,,47.0387433,28.8304527,,,
 Feeling Coffee,cafe,coffee_shop,Strada 31 August 1989,47.0181223,28.8363704,,,07:00-21:00
 Bublik,cafe,coffee_shop,Strada Armenească,47.0194675,28.8386853,,,
-Cyber.md Gaming Park,internet_cafe,,,47.0336073,28.7803248,+373 60 541 419,https://cyber.md,24/7
+Cyber.md Gaming Park,internet_cafe,,Strada Alba Iulia,47.0336073,28.7803248,+373 60 541 419,https://cyber.md,24/7
 Cyber.md Point,internet_cafe,,,47.0374298,28.8903612,+373 680 73 912,https://cyber.md/cyber-md-point/,Mo-Su 09:00-07:00
 Black Drop,cafe,coffee_shop,,47.0336940,28.8069088,+373 697 16 931,,Mo-Su 07:30-22:00
 Salaterra,cafe,,Strada Calea Ieșilor,47.0396631,28.8037835,+37376990000,https://www.instagram.com/salaterra.md/,
 Crazy Bubble,cafe,bubble_tea,Strada Calea Ieșilor,47.0379575,28.8077408,,https://www.instagram.com/crazybubblechisinau/,
-Underground Café,cafe,coffee_shop,Strada Alba-Iulia,47.0416790,28.7633895,,https://www.instagram.com/underground.cafe.md/,
+Underground Café,cafe,coffee_shop,Strada Alba Iulia,47.0416790,28.7633895,,https://www.instagram.com/underground.cafe.md/,
 Odélle,cafe,,Strada Mihai Eminescu,47.0240948,28.8403003,,,
 Grand Coffee Place,cafe,coffee_shop,Șoseaua Muncești,47.0013925,28.8711433,,,24/7
 Cappuccino,cafe,coffee_shop,Strada Bulgară,47.0168188,28.8383198,,,
@@ -819,7 +807,7 @@ Amano,cafe,,Strada Columna,47.0271382,28.8363871,,,
 Churchill's Whisky Bar,bar,,Strada Mitropolit Gavriil Bănulescu-Bodoni,47.0280093,28.8347379,,,
 Draft,pub,,Strada Columna,47.0273095,28.8365083,,,
 NiHao Coffee & Tea,cafe,coffee_shop,Bulevardul Ștefan cel Mare și Sfânt,47.0364277,28.8151831,,,
-Skull Coffee,cafe,,,47.0168464,28.8455827,,,
+Skull Coffee,cafe,,Bulevardul Ștefan cel Mare și Sfânt,47.0168464,28.8455827,,,
 Red Rabbit,cafe,,Strada Nicolae Dimo,47.0493602,28.8690582,,,
 Coffee Like,cafe,,,47.0435082,28.8671064,,,07:00-22:00
 jeraffe,restaurant,,Strada Ismail,47.0162720,28.8472312,,,
@@ -875,12 +863,41 @@ Brew Coffee,cafe,coffee_shop,Strada Vasile Alecsandri,47.0139358,28.8284593,,,Mo
 Little Napoli,restaurant,pizza,Strada Sucevița,47.0334626,28.7790957,,,
 Mimino,restaurant,georgian,Strada Arborilor,47.0046035,28.8401004,,https://mimino.md,
 Corso Pizza,restaurant,pizza,Strada Valentin Guțu,47.0004279,28.8366558,,,
+Picoteo,cafe,,Bulevardul Mircea cel Bătrân,47.0500009,28.8911461,,,
+Food Mafia,restaurant,sushi,Bulevardul Mircea cel Bătrân,47.0606160,28.8911384,+373 798 01 060,https://foodmafia.md,Mo-Th 11:00-23:00; Fr-Su 11:00-24:00
+NANUNA,restaurant,,,47.0469400,28.7834210,,,
+La Plăcinte,restaurant,romanian,Strada Liviu Deleanu,47.0396171,28.7693888,,,
+,bar,,Strada Mitropolit Dosoftei,47.0295299,28.8295034,,,
+Emba Coffee & Patisserie,cafe,coffee_shop,Strada Mitropolit Gavriil Bănulescu-Bodoni,47.0288201,28.8352524,,,
+Lazy Crazy,restaurant,asian,Strada Mitropolit Gavriil Bănulescu-Bodoni,47.0288878,28.8353574,,,
+The Kebab Shop,fast_food,kebab,Strada Andrei Doga,47.0353270,28.8551582,,,
+Burger Craft,fast_food,,Strada Mihail Kogălniceanu,47.0197157,28.8252724,,,
+Big Kebab Pizza & Burger,fast_food,kebab,Bulevardul Decebal,47.0007186,28.8596898,,,
+Andy's Pizza,restaurant,pizza,Bulevardul Decebal,47.0057049,28.8588844,,,
+Skull Terrace,cafe,,Bulevardul Ștefan cel Mare și Sfânt,47.0166974,28.8455572,,,
+Garnir,cafe,,Strada Calea Basarabiei,47.0082283,28.8745342,,,
+Pato Potato,restaurant,turkish,Strada Petricani,47.0425073,28.8382570,,,
+Ani Ami Café,cafe,,Strada Igor Vieru,47.0516174,28.8940432,,,
+Döner Kebab,fast_food,kebab,Strada Vasile Alecsandri,47.0243950,28.8427880,,,
+Roast & Wine,bar,,Strada Tricolorului,47.0272411,28.8307981,,,
+Coffee Varka,cafe,,Strada Alexandr Pușkin,47.0276542,28.8388120,,,
+27 Bar,bar,,Strada Ion Inculeț,47.0091282,28.8380109,,,
+Gamarjoba,restaurant,,Bulevardul Mircea cel Bătrân,47.0401565,28.8922188,,,
+Nordi.,cafe,coffee_shop,Strada Mihail Kogălniceanu,47.0149622,28.8321442,,,
+,cafe,,,47.0200164,28.8082257,,,
+,cafe,,Strada Lev Tolstoi,47.0112347,28.8419322,,,
+,cafe,,,47.0059457,28.8567016,,,
+,cafe,,,47.0059261,28.8567511,,,
+Smile Kebab,fast_food,kebab,Strada Alecu Russo,47.0431161,28.8674167,,,
+Mirror Bistro,cafe,,Strada Aleksandr Pușkin,47.0191865,28.8277646,,,
+,cafe,,проспект Дечебал,47.0063819,28.8593499,,,
+,cafe,,,47.0020798,28.8558940,,,
 Ferma cu Origini,restaurant,pizza,Strada Calea Ieșilor,47.0379561,28.8037702,,https://4sq.com/3uPFFBu,"PH,Mo-Su 10:00-22:00"
 Crizantema de Aur,restaurant,regional,Strada Petru Zadnipru,47.0442834,28.8830028,,,
 Bar Biliard,bar,,Strada Ștefan cel Mare,47.0899030,29.0769849,,,
-Țărăncuța,restaurant,regional;romanian,Strada Alba-Iulia,47.0304012,28.7869239,+37322747761,https://www.facebook.com/Tarancuta-Cafe-226806541433806/,
+Țărăncuța,restaurant,regional;romanian,Strada Alba Iulia,47.0304012,28.7869239,+37322747761,,
 Château Grill & Pub,restaurant,,Strada Nicolae Costin,47.0424082,28.7713712,,,
-Kebabun,fast_food,kebab,Strada Alba-Iulia,47.0281445,28.7912680,+37378076622,https://kebabun.md/,Mo-Su 10:00-02:00
+Kebabun,fast_food,kebab,Strada Alba Iulia,47.0281445,28.7912680,+37378076622,https://kebabun.md/,Mo-Su 10:00-02:00
 Cantina,fast_food,,Strada Mircești,47.0589210,28.8144951,,,
 Popas Vânătoresc,restaurant,romanian;regional,Strada Calea Moșilor,47.0401353,28.8433846,+373 22 294 488,,Mo-Su 12:00-23:00
 Bar „Leu”,cafe,,Strada Doina,47.0605581,28.8364652,,,Mo-Su 10:00-22:00
@@ -912,3 +929,4 @@ Bar,bar,,,47.0197368,28.8451337,,,
 ,cafe,,Strada Grigore Alexandrescu,47.0198663,28.8086602,,,
 Blocul alimentar,fast_food,,Strada Vasile Alecsandri,47.0066433,28.8287745,,,
 Prime Kebab,fast_food,kebab,Strada Stolniceni,47.0061037,28.8564084,,,
+UBC Terrace,cafe,,,47.0290987,28.8253022,,,
