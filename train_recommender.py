@@ -29,6 +29,7 @@ trainset = data.build_full_trainset()
 algo = SVD(n_factors=50, random_state=42)
 algo.fit(trainset)
 
+
 # Сохраняем CF-модель
 os.makedirs("models", exist_ok=True)
 joblib.dump(algo, "models/cf_model.pkl")
