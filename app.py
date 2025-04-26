@@ -1,29 +1,60 @@
 import os
 import json
+import subprocess
+from datetime import datetime
+
 from flask import Flask, request, jsonify, Response
 from dotenv import load_dotenv
+
 import mysql.connector
-from sqlalchemy import create_engine
 import pandas as pd
+from sqlalchemy import create_engine
 
-# Загрузка переменных окружения из .env
+import joblib
+import numpy as np
+from surprise import SVD
+
+from sklearn.metrics.pairwise import cosine_similarity
+
+import gensim
+from gensim.corpora import Dictionary
+
+# ============ CONFIG ==============
 load_dotenv()
-DB_URL = os.getenv("DB_URL")  # например "mysql+pymysql://root:пароль@localhost/foodaround_db"
-if not DB_URL:
-    raise RuntimeError("Переменная окружения DB_URL не задана")
+DB_URL   = os.getenv("DB_URL")   # "mysql+pymysql://root:pass@localhost/foodaround_db"
+DB_HOST  = os.getenv("DB_HOST",  "localhost")
+DB_USER  = os.getenv("DB_USER",  "root")
+DB_PASS  = os.getenv("DB_PASS",  "")
+DB_NAME  = os.getenv("DB_NAME",  "foodaround_db")
 
-# Создаём SQLAlchemy-движок для pandas и других видов запросов
+MODEL_DIR = "models"
+
+# SQLAlchemy engine для pd.read_sql
 engine = create_engine(DB_URL, pool_pre_ping=True)
 
+# Готовые модели (лениво, но один раз загрузятся)
+demand_model       = joblib.load(os.path.join(MODEL_DIR, "demand_model.pkl"))
+restaurant_encoder = joblib.load(os.path.join(MODEL_DIR, "restaurant_encoder.pkl"))
+
+cf_model           = joblib.load(os.path.join(MODEL_DIR, "cf_model.pkl"))          # Surprise SVD
+tfidf_vec          = joblib.load(os.path.join(MODEL_DIR, "tfidf_vectorizer.pkl"))
+tfidf_matrix       = joblib.load(os.path.join(MODEL_DIR, "tfidf_matrix.pkl"))
+
+sentiment_vec      = joblib.load(os.path.join(MODEL_DIR, "sentiment_vectorizer.pkl"))
+sentiment_model    = joblib.load(os.path.join(MODEL_DIR, "sentiment_model.pkl"))
+
+lda_model          = gensim.models.LdaModel.load(os.path.join(MODEL_DIR, "lda_model.gensim"))
+lda_dictionary     = Dictionary.load(os.path.join(MODEL_DIR, "lda_dictionary.gensim"))
+
+# ============ APP ==============
 app = Flask(__name__)
 
-# Оригинальный MySQL-коннектор для cursor-based операций
 def get_db_connection():
     return mysql.connector.connect(
-        host=os.getenv("DB_HOST", "localhost"),
-        user=os.getenv("DB_USER", "root"),
-        password=os.getenv("DB_PASS", ""),
-        database=os.getenv("DB_NAME", "foodaround_db"),
+        host=DB_HOST,
+        user=DB_USER,
+        password=DB_PASS,
+        database=DB_NAME,
         charset='utf8mb4',
         use_unicode=True,
         use_pure=True
@@ -35,122 +66,158 @@ def ping():
 
 @app.route('/get_restaurants', methods=['GET'])
 def get_restaurants():
-    # Читаем данные через pandas + SQLAlchemy
     df = pd.read_sql(
-        "SELECT id, name, address, rating, cuisine FROM restaurants;",
+        "SELECT id, name, address, rating, cuisine FROM restaurants",
         con=engine
     )
-    restaurants = df.to_dict(orient='records')
-    return Response(
-        json.dumps({"restaurants": restaurants}, ensure_ascii=False),
-        mimetype='application/json; charset=utf-8'
-    )
+    return jsonify(restaurants=df.to_dict(orient='records'))
 
 @app.route('/predict_demand', methods=['POST'])
 def predict_demand():
-    data = request.json
-    # TODO: загрузить models/demand_model.pkl и restaurant_encoder.pkl, сделать реальный прогноз
-    return jsonify({"prediction": "Пример предсказания спроса"})
+    """
+    Input JSON:
+      { "restaurant_id": int, "date_time": ISO8601 str }
+    Output:
+      { "prediction": float }
+    """
+    j = request.json
+    rid = j.get("restaurant_id")
+    dt  = j.get("date_time")
+    if rid is None or dt is None:
+        return jsonify(error="restaurant_id and date_time required"), 400
+
+    # parse date_time
+    ts = datetime.fromisoformat(dt)
+    # build features
+    enc = restaurant_encoder.transform([rid])[0]
+    hour = ts.hour
+    dow  = ts.weekday()
+    is_we = 1 if dow >= 5 else 0
+
+    X = np.array([[enc, hour, dow, is_we]])
+    pred = float(demand_model.predict(X))
+    return jsonify(prediction=pred)
 
 @app.route('/recommend', methods=['POST'])
 def recommend():
-    user_id = request.json.get("user_id")
-    # TODO: загрузить CF- и CB-модели и вернуть реальные рекомендации
-    return jsonify({"recommendations": ["Ресторан A", "Ресторан B"]})
+    """
+    Input JSON:
+      { "user_id": int, "n": int }
+    Output:
+      {
+        "cf": [restaurant_id...],
+        "cb": [restaurant_id...]
+      }
+    """
+    j = request.json
+    uid = j.get("user_id")
+    n   = int(j.get("n", 5))
+    if uid is None:
+        return jsonify(error="user_id required"), 400
+
+    # --- Collaborative: предскажем по SVD ---
+    # узнаём все рестораны
+    df_r = pd.read_sql("SELECT id FROM restaurants", con=engine)
+    all_ids = df_r["id"].tolist()
+
+    # CF: предскажем для тех, что юзер ещё не брал
+    # узнаём что уже заказал
+    df_o = pd.read_sql(
+        f"SELECT restaurant_id FROM orders WHERE from_id = {uid}",
+        con=engine
+    )
+    seen = set(df_o["restaurant_id"].tolist())
+    candidates = [rid for rid in all_ids if rid not in seen]
+
+    preds = []
+    for rid in candidates:
+        est = cf_model.predict(str(uid), str(rid)).est
+        preds.append((rid, est))
+    cf_top = [rid for rid,_ in sorted(preds, key=lambda x:-x[1])[:n]]
+
+    # --- Content-based ---
+    # найдём для юзера самое популярное заведение
+    df_user = pd.read_sql(
+        f"SELECT restaurant_id, SUM(count) as cnt FROM orders WHERE from_id = {uid} GROUP BY restaurant_id",
+        con=engine
+    )
+    if df_user.empty:
+        cb_top = []
+    else:
+        fave = int(df_user.sort_values("cnt", ascending=False).iloc[0]["restaurant_id"])
+        # найдём index в матрице TF-IDF
+        df_r = pd.read_sql("SELECT id FROM restaurants", con=engine)
+        idx = df_r.index[df_r["id"] == fave].tolist()[0]
+        cos = cosine_similarity(
+            tfidf_matrix[idx:idx+1],
+            tfidf_matrix
+        ).flatten()
+        # получаем топ N похожих (кроме самого)
+        pairs = list(enumerate(cos))
+        pairs.sort(key=lambda x:-x[1])
+        cb_top = [int(df_r.iloc[i]["id"]) for i,sim in pairs[1:n+1]]
+
+    return jsonify(cf=cf_top, cb=cb_top)
 
 @app.route('/analyze_reviews', methods=['POST'])
 def analyze_reviews():
-    review_text = request.json.get("review_text")
-    # TODO: загрузить sentiment_model.pkl и вернуть тональность
-    return jsonify({"sentiment": "положительный"})
+    """
+    Input JSON:
+      { "review_text": str }
+    Output:
+      { "sentiment": "positive"/"negative" }
+    """
+    text = request.json.get("review_text", "")
+    if not text:
+        return jsonify(error="review_text required"), 400
+    v = sentiment_vec.transform([text])
+    pred = sentiment_model.predict(v)[0]
+    label = "positive" if pred==1 else "negative"
+    return jsonify(sentiment=label)
 
-@app.route('/add_chef_review', methods=['POST'])
-def add_chef_review():
-    data = request.json
-    chef_name = data.get("chef_name")
-    rating = data.get("rating")
-    comment = data.get("comment")
-
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SET NAMES utf8mb4 COLLATE utf8mb4_general_ci")
-    cursor.execute(
-        "INSERT INTO chef_reviews (chef_name, rating, comment, created_at) "
-        "VALUES (%s, %s, %s, NOW())",
-        (chef_name, rating, comment)
-    )
-    conn.commit()
-    review_id = cursor.lastrowid
-    cursor.close()
-    conn.close()
-
-    return jsonify({"message": "Отзыв добавлен!", "review_id": review_id})
-
-@app.route('/get_chef_reviews', methods=['GET'])
-def get_chef_reviews():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SET NAMES utf8mb4 COLLATE utf8mb4_general_ci")
-    cursor.execute("SELECT id, chef_name, rating, comment, created_at FROM chef_reviews;")
-    rows = cursor.fetchall()
-    cursor.close()
-    conn.close()
-
-    reviews = []
-    for _id, chef_name, rating, comment, created_at in rows:
-        reviews.append({
-            "id": _id,
-            "chef_name": chef_name,
-            "rating": rating,
-            "comment": comment,
-            "created_at": str(created_at)
-        })
-    return jsonify({"chef_reviews": reviews})
-
-@app.route('/add_scraped_review', methods=['POST'])
-def add_scraped_review():
-    data = request.json
-    restaurant_name = data.get("restaurant_name")
-    source = data.get("source")
-    rating = data.get("rating")
-    review_text = data.get("review_text")
-    review_date = data.get("review_date")
-
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO scraped_reviews "
-        "(restaurant_name, source, rating, review_text, review_date, created_at) "
-        "VALUES (%s, %s, %s, %s, %s, NOW())",
-        (restaurant_name, source, rating, review_text, review_date)
-    )
-    conn.commit()
-    review_id = cursor.lastrowid
-    cursor.close()
-    conn.close()
-
-    return jsonify({"message": "Скрапнутый отзыв добавлен!", "review_id": review_id})
-
-@app.route('/get_scraped_reviews', methods=['GET'])
-def get_scraped_reviews():
-    df = pd.read_sql(
-        "SELECT id, restaurant_name, source, rating, review_text, review_date FROM scraped_reviews;",
-        con=engine,
-        parse_dates=['review_date']
-    )
-    reviews = df.to_dict(orient='records')
-    # Преобразуем даты в строку
-    for r in reviews:
-        r['review_date'] = str(r['review_date'])
-    return Response(
-        json.dumps({"scraped_reviews": reviews}, ensure_ascii=False),
-        mimetype='application/json; charset=utf-8'
-    )
+@app.route('/topic_reviews', methods=['POST'])
+def topic_reviews():
+    """
+    Input JSON:
+      { "review_text": str }
+    Output:
+      { "topics": [ {"topic_id":int, "score":float}, ... ] }
+    """
+    text = request.json.get("review_text", "")
+    if not text:
+        return jsonify(error="review_text required"), 400
+    toks = text.lower().split()
+    bow = lda_dictionary.doc2bow(toks)
+    topics = lda_model.get_document_topics(bow)
+    # берём топ-3
+    top3 = sorted(topics, key=lambda x:-x[1])[:3]
+    return jsonify(topics=[{"topic_id": int(t), "score": float(sc)} for t,sc in top3])
 
 @app.route('/update_data', methods=['POST'])
 def update_data():
-    # TODO: по запросу обновить данные (скрап, retrain, etc.)
-    return jsonify({"status": "Данные обновлены"})
+    """
+    Триггерит пересборку моделей:
+      train_demand.py, train_recommender.py, train_sentiment.py, train_topic_model.py
+    """
+    scripts = [
+        "train_demand.py",
+        "train_recommender.py",
+        "train_sentiment.py",
+        "train_topic_model.py"
+    ]
+    results = {}
+    for s in scripts:
+        try:
+            out = subprocess.check_output(
+                ["python", s],
+                cwd=os.getcwd(),
+                stderr=subprocess.STDOUT,
+                text=True
+            )
+            results[s] = {"ok": True,  "output": out}
+        except subprocess.CalledProcessError as e:
+            results[s] = {"ok": False, "output": e.output}
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.run(debug=True)
