@@ -2,6 +2,7 @@
 # Загружает агрегированные исторические данные из БД или из datasets/orders.csv.
 # Генерирует фичи («день недели», «час», one-hot restaurant_id)
 # Обучает XGBoost/LightGBM, сохраняет модель в models/demand_model.pkl.
+
 import os
 import pandas as pd
 import joblib

@@ -1,8 +1,6 @@
 # Тренировка рекомендателя
 #  Content-based: собирает TF-IDF по названиям + кухням, считает косинус-сходство.
-
 # Collaborative: использует surprise.SVD на выборках (user, restaurant, count).
-
 # Сохраняет оба варианта в models/cb_model.pkl и models/cf_model.pkl.
 
 import os

@@ -1,7 +1,5 @@
 # Тренировка модели тональности
-
 # Берёт scraped_reviews из БД, размечает «позитив/негатив».
-
 #  Обучает LogisticRegression над TF-IDF, сохраняет models/sentiment_model.pkl.
 
 import os

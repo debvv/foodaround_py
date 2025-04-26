@@ -1,9 +1,6 @@
 # Тематическое моделирование
-
 #Загружает тексты отзывов, создаёт gensim.Dictionary + BOW, обучает LdaModel.
-
 #Сохраняет модель и словарь в models/.
-
 
 import os
 import pandas as pd
