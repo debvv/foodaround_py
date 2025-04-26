@@ -5,9 +5,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('orders.csv', parse_dates=['time_date'])
 print("Список колонок в DataFrame:", df.columns.tolist())
 # 2) Заказы по ресторанам
-#orders_by_rest = df['restaurant_id'].value_counts().rename_axis('restaurant_id').reset_index(name='orders_count')
-# старое — df['restaurant_id']
-#fixed version down:
+
 orders_by_rest = df['restaurant_id'].value_counts().rename_axis('restaurant_id').reset_index(name='orders_count')
 
 print("Топ-10 ресторанов по числу заказов:")
