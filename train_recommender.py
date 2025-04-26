@@ -35,6 +35,7 @@ os.makedirs("models", exist_ok=True)
 joblib.dump(algo, "models/cf_model.pkl")
 print("CF-модель сохранена в models/cf_model.pkl")
 
+
 # ----- Content-Based Filtering (TF-IDF) -----
 tfidf = TfidfVectorizer(max_features=5000)
 # Склеиваем name + cuisine для текста
