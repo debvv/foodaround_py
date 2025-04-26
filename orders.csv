@@ -1,0 +1,9 @@
+"id_order","time_date","name","from_id","product","description","count","email","address","accepted","restaurant_id"
+"3","2022-11-30 17:03:00","Tester","1527932594","пирожочки","с мясом","6","zozo@yahoo.com","Decebal 6-3","1525781292",NULL
+"4","2022-11-30 19:03:00","Vladislav","1527932594","яблоки"," ( в кг )","6","Vladik@mail.ru","sarmizegetusa street","0",NULL
+"5","2022-11-30 21:03:00","evgen","1527932594","пирожочки","с мясом","4","eugeniu.casian@iis.utm.md","decebal street","0",NULL
+"6","2022-11-26 14:44:00","Artur","1527932594","пирожочки","с мясом","45","eugeniu.casian@iis.utm.md","decebal street","0",NULL
+"7","2023-01-06 10:15:00","алекс","767869359","лазанья","классическая лазания","1","alex@mail.ru","chisinau bd. moscova 21","1527932594",NULL
+"9","2023-01-11 10:00:00","alex","767869359","котлетки","из свиноговяжего фарша","2","alex@mail.ru","burebista 12","0",NULL
+"10","2023-01-13 17:00:00","alex","767869359","пирожки","с кортошкой","5","alex@mail.ru","burebista 12","1525781292",NULL
+"11","2023-01-19 17:32:00","admin","1527932594","пирожочки","с мясом","6","jenea983@mail.ru","decebal street","0",NULL
