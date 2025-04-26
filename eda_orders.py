@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # 1) Загрузка данных
-df = pd.read_csv('orders.csv', parse_dates=['time_date'])
+df = pd.read_csv('datasets/orders.csv', parse_dates=['time_date'])
 print("Список колонок в DataFrame:", df.columns.tolist())
 # 2) Заказы по ресторанам
 

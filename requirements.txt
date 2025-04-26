@@ -1,0 +1,15 @@
+Flask
+overpy
+pandas
+numpy
+sqlalchemy
+PyMySQL
+xgboost
+lightgbm
+scikit-learn
+surprise
+gensim
+matplotlib    # для EDA
+joblib
+python-dotenv
+#spisok zavisimostey
