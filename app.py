@@ -4,7 +4,6 @@ from datetime import datetime
 from sqlalchemy import text
 import re
 import nltk
-from flask_cors import CORS
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from flask import Flask, request, jsonify, Response
@@ -41,7 +40,7 @@ STOPWORDS = set(_ru + _en)
 
 # Flask
 app = Flask(__name__)
-CORS(app)
+
 # SQLAlchemy-движок (для чтения через pandas)
 engine = create_engine(DB_URL)
 
