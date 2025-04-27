@@ -1,6 +1,7 @@
 import os
 import json
 from datetime import datetime
+from sqlalchemy import text
 
 from flask import Flask, request, jsonify, Response
 import mysql.connector
@@ -92,42 +93,99 @@ def predict_demand():
     return jsonify({"prediction": pred})
 
 
-@app.route('/recommend', methods=['POST'])
-def recommend():
-    user_id = request.json.get("user_id")
+#@app.route('/recommend', methods=['POST'])
+#def recommend():
+#    user_id = request.json.get("user_id")
+#    if user_id is None:
+#        return jsonify({"error": "Missing user_id"}), 400
     # --- CF ---
-    all_r = restaurants_df["id"].tolist()
-    cf_scores = []
-    for r in all_r:
+ #   all_r = restaurants_df["id"].tolist()
+#    cf_scores = []
+#    for r in all_r:
         # surprise-предсказание
-        pred = cf_model.predict(str(user_id), str(r))
-        cf_scores.append((r, pred.est))
-    cf_scores.sort(key=lambda x: x[1], reverse=True)
-    top_cf = [r for r,_ in cf_scores[:5]]
-    cf_names = restaurants_df.set_index("id").loc[top_cf,"name"].tolist()
+#        pred = cf_model.predict(str(user_id), str(r))
+ #       cf_scores.append((r, pred.est))
+ #   cf_scores.sort(key=lambda x: x[1], reverse=True)
+ #   top_cf = [r for r,_ in cf_scores[:5]]
+ #   cf_names = restaurants_df.set_index("id").loc[top_cf,"name"].tolist()
 
     # --- CB ---
     # возьмём последний заказ пользователя
-    q = f"SELECT restaurant_id FROM orders WHERE from_id = {user_id} ORDER BY time_date DESC LIMIT 1"
+#    q = f"SELECT restaurant_id FROM orders WHERE from_id = {user_id} ORDER BY time_date DESC LIMIT 1"
+#    conn = engine.connect()
+#    last = conn.execute(q).fetchone()
+#    conn.close()
+  #  q = text(
+  #      "SELECT restaurant_id "
+  #      "FROM orders "
+  #      "WHERE from_id = :uid "
+  #      "ORDER BY time_date DESC "
+  #      "LIMIT 1"
+  #  )
+ #   conn = engine.connect()
+ #   last = conn.execute(q, {"uid": user_id}).fetchone()
+  #  conn.close()
+
+ #   if last:
+ #       last_r = last[0]
+  #      idx = restaurants_df.index[restaurants_df["id"]== last_r][0]
+ ##       sims = cosine_similarity(tfidf_matrix[idx], tfidf_matrix).flatten()
+  #      top_idx = sims.argsort()[::-1][1:6]  # skip сам себя
+  #      cb_ids = restaurants_df.iloc[top_idx]["id"].tolist()
+  #      cb_names = restaurants_df.iloc[top_idx]["name"].tolist()
+  #  else:
+ #       # нет истории — просто отдадим первые 5
+  #      cb_names = restaurants_df["name"].tolist()[:5]
+
+ #   return jsonify({
+ #       "cf_recommendations": cf_names,
+ #       "cb_recommendations": cb_names
+ #   })
+@app.route('/recommend', methods=['POST'])
+def recommend():
+    user_id = request.json.get("user_id")
+    if user_id is None:
+        return jsonify({"error": "Missing user_id"}), 400
+
+    # --- Collaborative recommendations (SVD) ---
+    all_rest_ids = restaurants_df["id"].astype(str).tolist()
+    cf_scores = [
+        (int(rid), cf_model.predict(str(user_id), rid).est)
+        for rid in all_rest_ids
+    ]
+    cf_scores.sort(key=lambda x: x[1], reverse=True)
+    top_cf_ids   = [rid for rid,_ in cf_scores[:5]]
+    cf_names     = restaurants_df.set_index("id").loc[top_cf_ids, "name"].tolist()
+
+    # --- Content-based recommendations (cosine on TF-IDF) ---
+    # получаем последний заказ
+    q = text("""
+        SELECT restaurant_id
+        FROM orders
+        WHERE from_id = :uid
+        ORDER BY time_date DESC
+        LIMIT 1
+    """)
     conn = engine.connect()
-    last = conn.execute(q).fetchone()
+    last = conn.execute(q, {"uid": user_id}).fetchone()
     conn.close()
+
     if last:
-        last_r = last[0]
-        idx = restaurants_df.index[restaurants_df["id"]== last_r][0]
+        last_rest = last[0]
+        # находим индекс в матрице TF-IDF
+        idx = restaurants_df.index[restaurants_df["id"] == last_rest][0]
         sims = cosine_similarity(tfidf_matrix[idx], tfidf_matrix).flatten()
-        top_idx = sims.argsort()[::-1][1:6]  # skip сам себя
-        cb_ids = restaurants_df.iloc[top_idx]["id"].tolist()
-        cb_names = restaurants_df.iloc[top_idx]["name"].tolist()
+        # топ-5 похожих (пропускаем сам себя)
+        top_idxs = sims.argsort()[::-1][1:6]
+        cb_names = restaurants_df.iloc[top_idxs]["name"].tolist()
     else:
-        # нет истории — просто отдадим первые 5
+        # если пользователь без истории — просто первые 5 ресторанов
         cb_names = restaurants_df["name"].tolist()[:5]
 
     return jsonify({
         "cf_recommendations": cf_names,
         "cb_recommendations": cb_names
     })
-
 
 @app.route('/analyze_reviews', methods=['POST'])
 def analyze_reviews():
