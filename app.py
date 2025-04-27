@@ -16,14 +16,27 @@ from dotenv import load_dotenv
 from gensim.corpora import Dictionary
 from gensim.models import LdaModel
 from sklearn.metrics.pairwise import cosine_similarity
+from gensim import corpora
+from gensim.utils import simple_preprocess
+
 
 load_dotenv()
-nltk.download("stopwords")
-STOPWORDS = set(stopwords.words("russian"))
-LEMMA = WordNetLemmatizer()
+
 # Настройки
 DB_URL       = os.getenv("DB_URL")  # например "mysql+pymysql://root:pass@localhost/foodaround_db"
+# ЗАГРУЗКА LDA Данных
 MODEL_DIR    = "models"
+lda_dictionary = corpora.Dictionary.load(os.path.join(MODEL_DIR, "lda_dictionary.gensim"))
+lda_model      = LdaModel.load(os.path.join(MODEL_DIR, "lda_model.gensim"))
+
+# 2) определяем preprocess (должен совпадать с тем, что вы юзали при train_topic_model.py) ---
+
+nltk.download("stopwords")
+_ru = stopwords.words("russian")
+_en = stopwords.words("english")
+#STOPWORDS = set(stopwords.words("russian"))
+#LEMMA = WordNetLemmatizer()
+STOPWORDS = set(_ru + _en)
 
 # Flask
 app = Flask(__name__)
@@ -46,16 +59,12 @@ def get_db_connection():
 
 #добавил в app.py ту же функцию предобработки текстов, которую использовал при тренировке LDA,
 # и подключил её перед вызовом analyze_topics.
+
+
 def preprocess(text: str) -> list[str]:
-    # 1) привести к нижнему регистру и оставить только слова
-    text = text.lower()
-    tokens = re.findall(r"\w+", text, flags=re.U)
-    # 2) убрать стоп-слова и сделать лемматизацию
-    return [
-        LEMMA.lemmatize(tok)
-        for tok in tokens
-        if tok not in STOPWORDS and len(tok) > 1
-    ]
+    # простая токенизация + удаление стоп-слов
+    tokens = simple_preprocess(text, deacc=True)  # деакцентирование и lower
+    return [t for t in tokens if t not in STOPWORDS]
 
 
 # --------------- Загрузка моделей ---------------
@@ -215,33 +224,61 @@ def analyze_reviews():
     sentiment = "positive" if pred==1 else "negative"
     return jsonify({"sentiment": sentiment})
 
+
+#3 version
 @app.route('/analyze_topics', methods=['POST'])
 def analyze_topics():
-    text = request.json.get("review_text", "")
+    text = request.json.get("review_text", "").strip()
     if not text:
         return jsonify({"error": "Missing review_text"}), 400
 
-    # 1) предварительная обработка (ту же, что в train_topic_model)
-    tokens = preprocess(text)  # ваша функция токенизации/стоп-слов и т.д.
+    # 1) токенизируем и фильтруем стоп-слова
+    tokens = preprocess(text)
 
-    # 2) собрать мешок слов
+    # 2) строим «мешок слов» для LDA
     bow = lda_dictionary.doc2bow(tokens)
 
+    # 3) получаем распределение по топикам
+    topics = lda_model.get_document_topics(bow)
+
+    # 4) возвращаем результат
+    return jsonify({"topics": [
+        {"topic_id": tid, "probability": float(prob)}
+        for tid, prob in topics
+    ]})
+
+
+#2 version
+#@app.route('/analyze_topics', methods=['POST'])
+#def analyze_topics():
+ #   text = request.json.get("review_text", "")
+  #  if not text:
+   #     return jsonify({"error": "Missing review_text"}), 400
+
+    # 1) предварительная обработка (ту же, что в train_topic_model)
+    #tokens = preprocess(text)  # ваша функция токенизации/стоп-слов и т.д.
+
+    # 2) собрать мешок слов
+   # bow = lda_dictionary.doc2bow(tokens)
+
     # 3) получить распределение топиков
-    raw_topics = lda_model.get_document_topics(bow, minimum_probability=0.0)
+ #   raw_topics = lda_model.get_document_topics(bow, minimum_probability=0.0)
 
     # 4) собрать правильный JSON
-    topics = []
-    for topic_id, prob in raw_topics:
+ #   topics = []
+#    for topic_id, prob in raw_topics:
         # взять топ-10 слов этого топика
-        kw = [word for word, _ in lda_model.show_topic(topic_id, topn=10)]
-        topics.append({
-            "topic_id": int(topic_id),
-            "probability": float(prob),
-            "keywords": kw
-        })
+#        kw = [word for word, _ in lda_model.show_topic(topic_id, topn=10)]
+   #     topics.append({
+   #         "topic_id": int(topic_id),
+  #          "probability": float(prob),
+  #          "keywords": kw
+ #       })
 
-    return jsonify({"topics": topics})
+ #   return jsonify({"topics": topics})
+
+
+
 #old version is down
 #@app.route('/analyze_topics', methods=['POST'])
 #def analyze_topics():
