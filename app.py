@@ -2,7 +2,10 @@ import os
 import json
 from datetime import datetime
 from sqlalchemy import text
-
+import re
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 from flask import Flask, request, jsonify, Response
 import mysql.connector
 import pandas as pd
@@ -15,7 +18,9 @@ from gensim.models import LdaModel
 from sklearn.metrics.pairwise import cosine_similarity
 
 load_dotenv()
-
+nltk.download("stopwords")
+STOPWORDS = set(stopwords.words("russian"))
+LEMMA = WordNetLemmatizer()
 # Настройки
 DB_URL       = os.getenv("DB_URL")  # например "mysql+pymysql://root:pass@localhost/foodaround_db"
 MODEL_DIR    = "models"
@@ -37,6 +42,21 @@ def get_db_connection():
         use_unicode=True,
         use_pure=True
     )
+# ---------------------------
+
+#добавил в app.py ту же функцию предобработки текстов, которую использовал при тренировке LDA,
+# и подключил её перед вызовом analyze_topics.
+def preprocess(text: str) -> list[str]:
+    # 1) привести к нижнему регистру и оставить только слова
+    text = text.lower()
+    tokens = re.findall(r"\w+", text, flags=re.U)
+    # 2) убрать стоп-слова и сделать лемматизацию
+    return [
+        LEMMA.lemmatize(tok)
+        for tok in tokens
+        if tok not in STOPWORDS and len(tok) > 1
+    ]
+
 
 # --------------- Загрузка моделей ---------------
 
