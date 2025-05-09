@@ -137,11 +137,13 @@ def predict_demand():
 # функция передачи фичей и ендпоинт -------------------------------------------------------
 
 # === 3. Функция генерации фич для одного ресторана и одной даты ===
-def generate_features(date_str: str, restaurant_id: int) -> np.ndarray:
-    # 3.1 Преобразуем входную дату
-    date = pd.to_datetime(date_str).date()
 
-    # 3.2 Забираем историю ежедневных заказов из БД
+def generate_features(date_str: str, restaurant_id: int) -> np.ndarray:
+    # 1) Преобразуем входную строку в datetime
+    dt = pd.to_datetime(date_str)
+    date = dt.date()
+
+    # 2) История из БД
     query = f"""
         SELECT
             DATE(time_date) AS date,
@@ -152,32 +154,37 @@ def generate_features(date_str: str, restaurant_id: int) -> np.ndarray:
         ORDER BY date
     """
     df_hist = pd.read_sql(query, engine, parse_dates=['date'])
-    if df_hist.empty:
-        # если данных нет, считаем всё нулями
-        df_hist = pd.DataFrame({
-            'date': [date - pd.Timedelta(days=i) for i in range(0,4)],
-            'orders_count': [0,0,0,0]
-        })
-    # 3.3 Делаем частоту по дням и заполняем пропуски
     df_hist = df_hist.set_index('date').asfreq('D').fillna(0)
 
-    # 3.4 Достаём лаги
+    # 3) Лаги
     lag1 = df_hist['orders_count'].shift(1).get(date, 0)
     lag2 = df_hist['orders_count'].shift(2).get(date, 0)
     lag3 = df_hist['orders_count'].shift(3).get(date, 0)
 
-    # 3.5 Календарные признаки
-    dow   = date.weekday()
-    is_we = 1 if dow >= 5 else 0
-    month = date.month
-    is_hol= 1 if date in rus_hols else 0
+    # 4) Календарные фичи
+    hour = dt.hour             # Единичный признак часа (для суточной модели всегда 0)
+    dow   = dt.weekday()       # день недели
+    is_we = int(dow >= 5)      # выходной
+    month = dt.month           # месяц
+    is_hol= int(date in rus_hols)  # праздник?
 
-    # 3.6 Код ресторана
+    # 5) Код ресторана
     rest_enc = encoder.transform([restaurant_id])[0]
 
-    # 3.7 Собираем финальный вектор в том порядке, что и в train_demand.py
-    features = [rest_enc, dow, is_we, lag1, lag2, lag3, month, is_hol]
+    # 6) Собираем всё в тот же порядок, что и при обучении
+    features = [
+        rest_enc,
+        hour,
+        dow,
+        is_we,
+        lag1,
+        lag2,
+        lag3,
+        month,
+        is_hol
+    ]
     return np.array(features).reshape(1, -1)
+
 
 
 # === 4. Эндпоинт /predict ===
