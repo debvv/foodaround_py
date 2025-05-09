@@ -12,10 +12,12 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
 from sqlalchemy import create_engine
-
+import holidays
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import numpy as np
 # Настройки из .env
 from dotenv import load_dotenv
-# 1) Загрузка .env
+# === 1. Настройки из .env и подключение к БД ===
 load_dotenv()
 
 # 2) Получаем строку подключения из переменной окружения
@@ -31,45 +33,114 @@ engine = create_engine(DB_URL)
 df = pd.read_sql("""
     SELECT 
       restaurant_id,
-      time_date,
+      DATE(time_date) AS date,
       COUNT(*) AS orders_count
     FROM orders
-    GROUP BY restaurant_id, DATE(time_date), HOUR(time_date)
-""", engine, parse_dates=['time_date'])
+    GROUP BY restaurant_id, DATE(time_date)
+""", engine, parse_dates=['date'])
 
-# 2. Фичи календаря
-df['date']        = df['time_date'].dt.date
-df['hour']        = df['time_date'].dt.hour
+# Конвертируем date в datetime для дальнейших признаков
+df['time_date'] = pd.to_datetime(df['date'])
+print("Всего строк после загрузки из БД:", len(df))
+
+# 2.5. Добавляем пропущенные дни для каждого ресторана и заполняем 0
+min_date = df['time_date'].min()
+max_date = df['time_date'].max()
+restaurants = df['restaurant_id'].unique()
+full_idx = pd.MultiIndex.from_product(
+    [restaurants, pd.date_range(min_date, max_date, freq='D')],
+    names=['restaurant_id', 'time_date']
+)
+df = df.set_index(['restaurant_id', 'time_date']).reindex(full_idx).reset_index()
+df['orders_count'] = df['orders_count'].fillna(0)
+
+print("После расширения календаря (с нулями) строк:", len(df))
+
+if df.empty:
+    raise RuntimeError("Нет данных — проверьте таблицу orders в БД")
+
+
+
+# === 3. Календарные признаки ===
 df['day_of_week'] = df['time_date'].dt.weekday
 df['is_weekend']  = df['day_of_week'].isin([5,6]).astype(int)
 
-# 3. Кодируем restaurant_id
+
+# === 4. Лаг-фичи (1–3 дня назад) ===
+df = df.sort_values(['restaurant_id','time_date'])
+for lag in (1,2,3):
+    df[f'lag_{lag}'] = df.groupby('restaurant_id')['orders_count'].shift(lag)
+
+# === 5. Сезонные признаки ===
+df['month'] = df['time_date'].dt.month
+rus_holidays = holidays.CountryHoliday('RU')
+df['is_holiday'] = df['time_date'].dt.date.map(lambda d: 1 if d in rus_holidays else 0)
+
+
+# === 6. Убираем NaN, получившиеся из-за лагов ===
+df = df.dropna(subset=[f'lag_{l}' for l in (1,2,3)])
+print("Строк после dropna:", len(df))
+if len(df) < 2:
+    raise RuntimeError("После удаления NaN слишком мало строк для обучения")
+
+
+
+# === 7. Кодирование restaurant_id ===
 le = LabelEncoder()
 df['rest_enc'] = le.fit_transform(df['restaurant_id'])
 
-# 4. Формируем X и y
-X = df[['rest_enc','hour','day_of_week','is_weekend']]
+
+# === 8. Формирование X и y ===
+feature_cols = [
+    'rest_enc', 'day_of_week', 'is_weekend',
+    'lag_1', 'lag_2', 'lag_3',
+    'month', 'is_holiday'
+]
+X = df[feature_cols]
 y = df['orders_count']
 
-# 5. train/test split
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+# === 9. Хронологический train/test split ===
+df = df.sort_values('time_date')
+cut = int(len(df) * 0.8)
+print(f"Train size: {cut}, Test size: {len(df)-cut}")
+X_train, y_train = X.iloc[:cut], y.iloc[:cut]
+X_test,  y_test  = X.iloc[cut:], y.iloc[cut:]
 
-# 6. Обучение XGBoost
+
+print("Распределение orders_count в train:")
+print(y_train.value_counts(normalize=True).head(10))
+print("\nРаспределение orders_count в test:")
+print(y_test.value_counts(normalize=True).head(10))
+
+
+# === 10. Обучение модели ===
 model = xgb.XGBRegressor(
     n_estimators=200,
     max_depth=6,
     learning_rate=0.1,
+    objective='reg:squarederror',
     random_state=42
 )
 model.fit(X_train, y_train)
 
-# 7. Оценка
-preds = model.predict(X_val)
-print("MAE:", mean_absolute_error(y_val, preds))
+# === 11. Оценка модели на отложенной выборке ===
+preds = model.predict(X_test)
+mae = mean_absolute_error(y_test, preds)
+rmse = np.sqrt(mean_squared_error(y_test, preds))
+print(f"Test MAE:  {mae:.2f}")
+print(f"Test RMSE: {rmse:.2f}")
 
-# 8. Сохраняем модель и энкодер
-os.makedirs("models", exist_ok=True)
-joblib.dump(model, "models/demand_model.pkl")
-joblib.dump(le,    "models/restaurant_encoder.pkl")
-joblib.dump(best_model, 'models/xgb_model.pkl')
-print("Модель спроса сохранена в models/demand_model.pkl")
+# === 12. Сохранение модели и энкодера ===
+os.makedirs('models', exist_ok=True)
+joblib.dump(model, 'models/demand_model.pkl')
+joblib.dump(le,    'models/restaurant_encoder.pkl')
+print("Модель и энкодер сохранены в папке models/")
+
+# === 13. Проверка загрузки модели (опционально) ===
+loaded_model = joblib.load('models/demand_model.pkl')
+loaded_encoder = joblib.load('models/restaurant_encoder.pkl')
+print("Загруженная модель:", type(loaded_model))
+print("Загруженный энкодер:", type(loaded_encoder))
+
+
+

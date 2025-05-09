@@ -12,4 +12,5 @@ gensim
 matplotlib    # для EDA
 joblib
 python-dotenv
+holidays
 #spisok zavisimostey
