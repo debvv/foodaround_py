@@ -103,14 +103,17 @@ y = df['orders_count']
 df = df.sort_values('time_date')
 cut = int(len(df) * 0.8)
 print(f"Train size: {cut}, Test size: {len(df)-cut}")
-X_train, y_train = X.iloc[:cut], y.iloc[:cut]
-X_test,  y_test  = X.iloc[cut:], y.iloc[cut:]
 
-
+# === 9.1. Посмотрим, насколько много нулей и каких значений у нас в y ===
 print("Распределение orders_count в train:")
 print(y_train.value_counts(normalize=True).head(10))
 print("\nРаспределение orders_count в test:")
 print(y_test.value_counts(normalize=True).head(10))
+
+
+
+X_train, y_train = X.iloc[:cut], y.iloc[:cut]
+X_test,  y_test  = X.iloc[cut:], y.iloc[cut:]
 
 
 # === 10. Обучение модели ===
@@ -129,6 +132,17 @@ mae = mean_absolute_error(y_test, preds)
 rmse = np.sqrt(mean_squared_error(y_test, preds))
 print(f"Test MAE:  {mae:.2f}")
 print(f"Test RMSE: {rmse:.2f}")
+
+
+# === 11.1. Baseline: всегда берём значение lag_1 ===
+baseline_preds = X_test['lag_1'].values
+baseline_mae  = mean_absolute_error(y_test, baseline_preds)
+baseline_rmse = np.sqrt(mean_squared_error(y_test, baseline_preds))
+print(f"Baseline MAE (lag_1):  {baseline_mae:.2f}")
+print(f"Baseline RMSE (lag_1): {baseline_rmse:.2f}")
+
+
+
 
 # === 12. Сохранение модели и энкодера ===
 os.makedirs('models', exist_ok=True)

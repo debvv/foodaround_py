@@ -6,11 +6,7 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from flask import Flask, request, jsonify, Response
 import mysql.connector
-import pandas as pd
-import joblib
-import numpy as np
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 from gensim.corpora import Dictionary
@@ -19,7 +15,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 from gensim import corpora
 from gensim.utils import simple_preprocess
 from flask_cors import CORS
-
+from flask import Flask, request, jsonify
+import joblib
+import pandas as pd
+import numpy as np
+import holidays
 load_dotenv()
 
 # Настройки
@@ -41,6 +41,12 @@ STOPWORDS = set(_ru + _en)
 # Flask
 app = Flask(__name__)
 
+# === 2. Загрузка модели и энкодера ===
+model   = joblib.load('models/demand_model.pkl')
+encoder = joblib.load('models/restaurant_encoder.pkl')
+
+# Создаём объект праздников
+rus_hols = holidays.CountryHoliday('RU')
 
 CORS(app)
 
@@ -128,54 +134,74 @@ def predict_demand():
     return jsonify({"prediction": pred})
 
 
-#@app.route('/recommend', methods=['POST'])
-#def recommend():
-#    user_id = request.json.get("user_id")
-#    if user_id is None:
-#        return jsonify({"error": "Missing user_id"}), 400
-    # --- CF ---
- #   all_r = restaurants_df["id"].tolist()
-#    cf_scores = []
-#    for r in all_r:
-        # surprise-предсказание
-#        pred = cf_model.predict(str(user_id), str(r))
- #       cf_scores.append((r, pred.est))
- #   cf_scores.sort(key=lambda x: x[1], reverse=True)
- #   top_cf = [r for r,_ in cf_scores[:5]]
- #   cf_names = restaurants_df.set_index("id").loc[top_cf,"name"].tolist()
+# функция передачи фичей и ендпоинт -------------------------------------------------------
 
-    # --- CB ---
-    # возьмём последний заказ пользователя
-#    q = f"SELECT restaurant_id FROM orders WHERE from_id = {user_id} ORDER BY time_date DESC LIMIT 1"
-#    conn = engine.connect()
-#    last = conn.execute(q).fetchone()
-#    conn.close()
-  #  q = text(
-  #      "SELECT restaurant_id "
-  #      "FROM orders "
-  #      "WHERE from_id = :uid "
-  #      "ORDER BY time_date DESC "
-  #      "LIMIT 1"
-  #  )
- #   conn = engine.connect()
- #   last = conn.execute(q, {"uid": user_id}).fetchone()
-  #  conn.close()
+# === 3. Функция генерации фич для одного ресторана и одной даты ===
+def generate_features(date_str: str, restaurant_id: int) -> np.ndarray:
+    # 3.1 Преобразуем входную дату
+    date = pd.to_datetime(date_str).date()
 
- #   if last:
- #       last_r = last[0]
-  #      idx = restaurants_df.index[restaurants_df["id"]== last_r][0]
- ##       sims = cosine_similarity(tfidf_matrix[idx], tfidf_matrix).flatten()
-  #      top_idx = sims.argsort()[::-1][1:6]  # skip сам себя
-  #      cb_ids = restaurants_df.iloc[top_idx]["id"].tolist()
-  #      cb_names = restaurants_df.iloc[top_idx]["name"].tolist()
-  #  else:
- #       # нет истории — просто отдадим первые 5
-  #      cb_names = restaurants_df["name"].tolist()[:5]
+    # 3.2 Забираем историю ежедневных заказов из БД
+    query = f"""
+        SELECT
+            DATE(time_date) AS date,
+            COUNT(*) AS orders_count
+        FROM orders
+        WHERE restaurant_id = {restaurant_id}
+        GROUP BY DATE(time_date)
+        ORDER BY date
+    """
+    df_hist = pd.read_sql(query, engine, parse_dates=['date'])
+    if df_hist.empty:
+        # если данных нет, считаем всё нулями
+        df_hist = pd.DataFrame({
+            'date': [date - pd.Timedelta(days=i) for i in range(0,4)],
+            'orders_count': [0,0,0,0]
+        })
+    # 3.3 Делаем частоту по дням и заполняем пропуски
+    df_hist = df_hist.set_index('date').asfreq('D').fillna(0)
 
- #   return jsonify({
- #       "cf_recommendations": cf_names,
- #       "cb_recommendations": cb_names
- #   })
+    # 3.4 Достаём лаги
+    lag1 = df_hist['orders_count'].shift(1).get(date, 0)
+    lag2 = df_hist['orders_count'].shift(2).get(date, 0)
+    lag3 = df_hist['orders_count'].shift(3).get(date, 0)
+
+    # 3.5 Календарные признаки
+    dow   = date.weekday()
+    is_we = 1 if dow >= 5 else 0
+    month = date.month
+    is_hol= 1 if date in rus_hols else 0
+
+    # 3.6 Код ресторана
+    rest_enc = encoder.transform([restaurant_id])[0]
+
+    # 3.7 Собираем финальный вектор в том порядке, что и в train_demand.py
+    features = [rest_enc, dow, is_we, lag1, lag2, lag3, month, is_hol]
+    return np.array(features).reshape(1, -1)
+
+
+# === 4. Эндпоинт /predict ===
+@app.route('/predict', methods=['GET'])
+def predict():
+    date_str      = request.args.get('date')
+    restaurant_id = request.args.get('restaurant_id')
+    if not date_str or not restaurant_id:
+        return jsonify({"error": "Нужно указать date и restaurant_id"}), 400
+
+    restaurant_id = int(restaurant_id)
+    feats = generate_features(date_str, restaurant_id)
+    pred  = model.predict(feats)[0]
+
+    return jsonify({
+        "date": date_str,
+        "restaurant_id": restaurant_id,
+        "predicted_orders": float(pred)
+    })
+
+
+# --------------------------------------------------------------------------------------
+
+
 @app.route('/recommend', methods=['POST'])
 def recommend():
     user_id = request.json.get("user_id")
