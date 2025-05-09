@@ -280,54 +280,6 @@ def analyze_topics():
     ]})
 
 
-#2 version
-#@app.route('/analyze_topics', methods=['POST'])
-#def analyze_topics():
- #   text = request.json.get("review_text", "")
-  #  if not text:
-   #     return jsonify({"error": "Missing review_text"}), 400
-
-    # 1) предварительная обработка (ту же, что в train_topic_model)
-    #tokens = preprocess(text)  # ваша функция токенизации/стоп-слов и т.д.
-
-    # 2) собрать мешок слов
-   # bow = lda_dictionary.doc2bow(tokens)
-
-    # 3) получить распределение топиков
- #   raw_topics = lda_model.get_document_topics(bow, minimum_probability=0.0)
-
-    # 4) собрать правильный JSON
- #   topics = []
-#    for topic_id, prob in raw_topics:
-        # взять топ-10 слов этого топика
-#        kw = [word for word, _ in lda_model.show_topic(topic_id, topn=10)]
-   #     topics.append({
-   #         "topic_id": int(topic_id),
-  #          "probability": float(prob),
-  #          "keywords": kw
- #       })
-
- #   return jsonify({"topics": topics})
-
-
-
-#old version is down
-#@app.route('/analyze_topics', methods=['POST'])
-#def analyze_topics():
- #   text = request.json.get("review_text","").lower().split()
-    # фильтруем только слова из словаря
-  #  tokens = [w for w in text if w in lda_dict.token2id]
-   # bow    = lda_dict.doc2bow(tokens)
-   # topics = lda_model.get_document_topics(bow)
-   # out = []
-   # for tid, prob in topics:
-    #    keywords = [w for w,_ in lda_model.show_topic(tid, topn=5)]
-     #   out.append({
-      #      "topic_id": tid,
-       #     "probability": float(prob),
-        #    "keywords": keywords
-      #  })
-   # return jsonify({"topics": out})
 
 
 # -- Существующие CRUD для отзывов --
