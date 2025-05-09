@@ -18,7 +18,7 @@ from gensim.models import LdaModel
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim import corpora
 from gensim.utils import simple_preprocess
-
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -40,6 +40,11 @@ STOPWORDS = set(_ru + _en)
 
 # Flask
 app = Flask(__name__)
+
+
+CORS(app)
+
+
 
 # SQLAlchemy-движок (для чтения через pandas)
 engine = create_engine(DB_URL)
@@ -86,6 +91,7 @@ sentiment_vectorizer= joblib.load(os.path.join(MODEL_DIR, "sentiment_vectorizer.
 lda_dict            = Dictionary.load(os.path.join(MODEL_DIR, "lda_dictionary.gensim"))
 lda_model           = LdaModel.load(os.path.join(MODEL_DIR, "lda_model.gensim"))
 
+model = joblib.load('models/xgb_model.pkl')
 
 # Подгружаем список ресторанов сразу (для /recommend и /get_restaurants)
 restaurants_df = pd.read_sql("SELECT id, name, address, rating, cuisine FROM restaurants", engine)
