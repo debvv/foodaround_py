@@ -2,7 +2,7 @@
 # Загружает агрегированные исторические данные из БД или из datasets/orders.csv.
 # Генерирует фичи («день недели», «час», one-hot restaurant_id)
 # Обучает XGBoost/LightGBM, сохраняет модель в models/demand_model.pkl.
-
+import argparse
 import os
 import pandas as pd
 import joblib
@@ -15,6 +15,8 @@ from sqlalchemy import create_engine
 import holidays
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import numpy as np
+
+
 # Настройки из .env
 from dotenv import load_dotenv
 # === 1. Настройки из .env и подключение к БД ===
@@ -102,7 +104,12 @@ y = df['orders_count']
 # === 9. Хронологический train/test split ===
 df = df.sort_values('time_date')
 cut = int(len(df) * 0.8)
+X_train, y_train = X.iloc[:cut], y.iloc[:cut]
+X_test,  y_test  = X.iloc[cut:], y.iloc[cut:]
+
 print(f"Train size: {cut}, Test size: {len(df)-cut}")
+
+
 
 # === 9.1. Посмотрим, насколько много нулей и каких значений у нас в y ===
 print("Распределение orders_count в train:")
@@ -111,9 +118,43 @@ print("\nРаспределение orders_count в test:")
 print(y_test.value_counts(normalize=True).head(10))
 
 
+# ======== ПАРСИНГ Аргументов =====
 
-X_train, y_train = X.iloc[:cut], y.iloc[:cut]
-X_test,  y_test  = X.iloc[cut:], y.iloc[cut:]
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--model",
+    choices=["linear", "tree", "xgb", "all"],
+    default="all",
+    help="какую модель(и) тренировать и оценить"
+)
+args = parser.parse_args()
+
+# === ВЫБОР МОДЕЛЕЙ ===
+if args.model in ("linear", "all"):
+    from sklearn.linear_model import LinearRegression
+    mdl = LinearRegression()
+    mdl.fit(X_train, y_train)
+    preds = mdl.predict(X_test)
+    # … печатаем MAE/RMSE …
+
+if args.model in ("tree", "all"):
+    from sklearn.tree import DecisionTreeRegressor
+    mdl = DecisionTreeRegressor(max_depth=5, random_state=42)
+    mdl.fit(X_train, y_train)
+    preds = mdl.predict(X_test)
+    # … печатаем MAE/RMSE …
+
+if args.model in ("xgb", "all"):
+    import xgboost as xgb
+    mdl = xgb.XGBRegressor(
+        max_depth=5,
+        learning_rate=0.1,
+        n_estimators=100,
+        objective='reg:squarederror',
+        random_state=42
+    )
+    mdl.fit(X_train, y_train)
+    preds = mdl.predict(X_test)
 
 
 # === 10. Обучение модели ===
